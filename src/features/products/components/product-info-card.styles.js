@@ -7,12 +7,12 @@ export const Icon = styled.Image`
 `;
 
 export const ProductCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
+  background-color: ${(props) => props.theme.colors.colorList.white};
 `;
 
 export const ProductCardCover = styled(Card.Cover)`
   padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.bg.primary};
+  background-color: ${(props) => props.theme.colors.colorList.white};
 `;
 
 export const Address = styled.Text`
