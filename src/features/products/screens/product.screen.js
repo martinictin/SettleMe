@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { SafeArea } from "../../../components/utills/safe-area.component";
@@ -23,7 +23,7 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-export const ProductsScreen = () => {
+export const ProductsScreen = ({ navigation }) => {
   const { isLoading, error, products } = useContext(ProductsContext);
   return (
     <SafeArea>
@@ -37,9 +37,15 @@ export const ProductsScreen = () => {
         data={products}
         renderItem={({ item }) => {
           return (
-            <Spacer position="bottom" size="large">
-              <ProductInfoCard product={item} />
-            </Spacer>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ProductDetail", { product: item })
+              }
+            >
+              <Spacer position="bottom" size="large">
+                <ProductInfoCard product={item} />
+              </Spacer>
+            </TouchableOpacity>
           );
         }}
       />
