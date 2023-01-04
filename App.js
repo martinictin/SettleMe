@@ -4,7 +4,8 @@ import { Text } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { Ionicons } from "@expo/vector-icons";
+
 import {
   useFonts as useOswald,
   Oswald_400Regular,
@@ -14,6 +15,8 @@ import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 import { theme } from "./src/infrastructure/theme";
 import { ProductsScreen } from "./src/features/products/screens/product.screen";
 import { SafeArea } from "./src/components/utills/safe-area.component";
+import { ProductsContextProvider } from "./src/services/products/products.context";
+import { LocationContextProvider } from "./src/services/location/location.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +43,14 @@ const createScreenOptions = ({ route }) => {
     tabBarIcon: ({ size, color }) => (
       <Ionicons name={iconName} size={size} color={color} />
     ),
+    tabBarActiveTintColor: "gold",
+    tabBarInactiveTintColor: "black",
+    tabBarStyle: [
+      {
+        display: "flex",
+      },
+      null,
+    ],
   };
 };
 
@@ -59,19 +70,17 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator
-            screenOptions={createScreenOptions}
-            tabBarOptions={{
-              activeTintColor: "gold",
-              inactiveTintColor: "black",
-            }}
-          >
-            <Tab.Screen name="Home" component={ProductsScreen} />
-            <Tab.Screen name="Map" component={Map} />
-            <Tab.Screen name="Account" component={Account} />
-          </Tab.Navigator>
-        </NavigationContainer>
+        <LocationContextProvider>
+          <ProductsContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator screenOptions={createScreenOptions}>
+                <Tab.Screen name="Home" component={ProductsScreen} />
+                <Tab.Screen name="Map" component={Map} />
+                <Tab.Screen name="Account" component={Account} />
+              </Tab.Navigator>
+            </NavigationContainer>
+          </ProductsContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>

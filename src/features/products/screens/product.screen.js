@@ -1,37 +1,48 @@
-import React from "react";
-import { Searchbar } from "react-native-paper";
-import styled from "styled-components";
+import React, { useContext } from "react";
 import { FlatList } from "react-native";
-import { Spacer } from "../../../components/spacer/spacer.component";
-import { ProductInfoCard } from "../components/product-info-card.component";
+import styled from "styled-components/native";
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { SafeArea } from "../../../components/utills/safe-area.component";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { ProductsContext } from "../../../services/products/products.context";
+import { Search } from "../components/search.component";
+import { ProductInfoCard } from "../components/product-info-card.component";
 
-export const SearchContainer = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.colorList.lblack};
-`;
-
-export const ProductList = styled(FlatList).attrs({
+const ProductList = styled(FlatList).attrs({
   contentContainerStyle: {
     padding: 16,
   },
 })``;
 
-export const ProductsScreen = () => (
-  <SafeArea>
-    <SearchContainer>
-      <Searchbar />
-    </SearchContainer>
-    <ProductList
-      data={[{ name: 1 }, { name: 2 }, { name: 3 }, { name: 4 }]}
-      renderItem={() => (
-        <Spacer position="top" size="large">
-          <ProductInfoCard />
-        </Spacer>
+const Loading = styled(ActivityIndicator)`
+  margin-left: -25px;
+`;
+const LoadingContainer = styled.View`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`;
+
+export const ProductsScreen = () => {
+  const { isLoading, error, products } = useContext(ProductsContext);
+  return (
+    <SafeArea>
+      {isLoading && (
+        <LoadingContainer>
+          <Loading size={50} animating={true} color={MD2Colors.yellow500} />
+        </LoadingContainer>
       )}
-      keyExtractor={(item) => item.name}
-      // eslint-disable-next-line react-native/no-inline-styles
-      contentContainerStyle={{ padding: 16 }}
-    />
-  </SafeArea>
-);
+      <Search />
+      <ProductList
+        data={products}
+        renderItem={({ item }) => {
+          return (
+            <Spacer position="bottom" size="large">
+              <ProductInfoCard product={item} />
+            </Spacer>
+          );
+        }}
+      />
+    </SafeArea>
+  );
+};

@@ -1,22 +1,23 @@
 import React from "react";
-import { Text } from "react-native";
 import { SvgXml } from "react-native-svg";
+
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { Text } from "../../../components/typography/text.component";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
-import { Spacer } from "../../../components/spacer/spacer.component";
 
 import {
-  Icon,
   ProductCard,
   ProductCardCover,
-  Address,
   Info,
-  Rating,
   RatingSection,
   OpenedSection,
-} from "../components/product-info-card.styles";
+  Rating,
+  Icon,
+  Address,
+} from "./product-info-card.styles";
 
-export const ProductInfoCard = ({ product: product = {} }) => {
+export const ProductInfoCard = ({ product = {} }) => {
   const {
     name = "Some Restaurant",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
@@ -27,6 +28,7 @@ export const ProductInfoCard = ({ product: product = {} }) => {
     isOpenNow = true,
     rating = 4,
     isClosedTemporarily = true,
+    placeId,
   } = product;
 
   const ratingArray = Array.from(new Array(Math.floor(rating)));
@@ -39,7 +41,12 @@ export const ProductInfoCard = ({ product: product = {} }) => {
         <RatingSection>
           <Rating>
             {ratingArray.map((_, i) => (
-              <SvgXml xml={star} width={20} height={20} />
+              <SvgXml
+                key={`star-${placeId}-${i}`}
+                xml={star}
+                width={20}
+                height={20}
+              />
             ))}
           </Rating>
           <OpenedSection>
