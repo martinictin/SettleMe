@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
-import { SafeArea } from "../../../components/utills/safe-area.component";
-import { Spacer } from "../../../components/spacer/spacer.component";
-import { ProductsContext } from "../../../services/products/products.context";
-import { Search } from "../components/search.component";
-import { ProductInfoCard } from "../components/product-info-card.component";
 
-const ProductList = styled(FlatList).attrs({
+import { SafeArea } from "../../components/utills/safe-area.component";
+import { Spacer } from "../../components/spacer/spacer.component";
+import { FavoritesContext } from "./favorites.context";
+import { FavoriteInfoCard } from "../../services/favorites/components/favorite-info-card.component";
+
+const FavoritesList = styled(FlatList).attrs({
   contentContainerStyle: {
     padding: 16,
   },
@@ -23,8 +23,8 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-export const ProductsScreen = ({ navigation }) => {
-  const { isLoading, products } = useContext(ProductsContext);
+export const FavoritesScreen = ({ navigation }) => {
+  const { isLoading, favorites } = useContext(FavoritesContext);
   return (
     <SafeArea>
       {isLoading && (
@@ -32,9 +32,8 @@ export const ProductsScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={MD2Colors.yellow500} />
         </LoadingContainer>
       )}
-      <Search />
-      <ProductList
-        data={products}
+      <FavoritesList
+        data={favorites}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
@@ -45,7 +44,7 @@ export const ProductsScreen = ({ navigation }) => {
               }
             >
               <Spacer position="bottom" size="large">
-                <ProductInfoCard product={item} />
+                <FavoriteInfoCard favorite={item} />
               </Spacer>
             </TouchableOpacity>
           );

@@ -6,6 +6,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { ProductsNavigator } from "../navigation/products.navigator";
 import { SafeArea } from "../../components/utills/safe-area.component";
+import { MapScreen } from "../../features/map/screens/map.screen";
+import { FavoritesScreen } from "../../services/favorites/favorites.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,16 +15,12 @@ const TAB_ICON = {
   Home: "md-home",
   Map: "md-map",
   Account: "md-person",
+  Favorites: "md-heart",
 };
 
 const Account = () => (
   <SafeArea>
     <Text>Account</Text>
-  </SafeArea>
-);
-const Map = () => (
-  <SafeArea>
-    <Text>Map</Text>
   </SafeArea>
 );
 
@@ -49,7 +47,8 @@ export const AppNavigator = () => {
     <NavigationContainer>
       <Tab.Navigator screenOptions={createScreenOptions}>
         <Tab.Screen name="Home" component={ProductsNavigator} />
-        <Tab.Screen name="Map" component={Map} />
+        <Tab.Screen name="Map" component={MapScreen} />
+        <Tab.Screen name="Favorites" component={FavoritesScreen} />
         <Tab.Screen name="Account" component={Account} />
       </Tab.Navigator>
     </NavigationContainer>

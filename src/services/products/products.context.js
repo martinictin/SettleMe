@@ -7,7 +7,7 @@ import { LocationContext } from "../location/location.context";
 export const ProductsContext = createContext();
 
 export const ProductsContextProvider = ({ children }) => {
-  const [products, setProducts] = useState(["toronto"]);
+  const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { location } = useContext(LocationContext);
@@ -16,18 +16,18 @@ export const ProductsContextProvider = ({ children }) => {
     setIsLoading(true);
     setProducts([]);
 
-    productsRequest(loc)
-      .then(productsTransform)
-      .then((results) => {
-        setError(null);
-        setIsLoading(false);
-        setProducts(results);
-      })
-      .catch((err) => {
-        setProducts([]);
-        setIsLoading(false);
-        setError(err);
-      });
+    setTimeout(() => {
+      productsRequest(loc)
+        .then(productsTransform)
+        .then((results) => {
+          setIsLoading(false);
+          setProducts(results);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          setError(err);
+        });
+    }, 2000);
   };
   useEffect(() => {
     if (location) {
