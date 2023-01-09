@@ -1,5 +1,6 @@
 import React from "react";
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
+import { CameraScreen } from "../../features/settings/screens/camera.screen";
 
 import {
   createStackNavigator,
@@ -22,6 +23,14 @@ export const SettingsNavigator = ({ route, navigation }) => {
         }}
         name="Settings"
         component={SettingsScreen}
+      />
+
+      <SettingsStack.Screen
+        options={{
+          header: () => null,
+        }}
+        name="Camera"
+        component={CameraScreen}
       />
     </SettingsStack.Navigator>
   );
