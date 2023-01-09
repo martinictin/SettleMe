@@ -7,6 +7,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { ProductsContext } from "../../../services/products/products.context";
 import { Search } from "../components/search.component";
 import { ProductInfoCard } from "../components/product-info-card.component";
+import { FadeInView } from "../../../components/animations/fade.animation";
 
 const ProductList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -45,7 +46,9 @@ export const ProductsScreen = ({ navigation }) => {
               }
             >
               <Spacer position="bottom" size="large">
-                <ProductInfoCard product={item} />
+                <FadeInView>
+                  <ProductInfoCard product={item} />
+                </FadeInView>
               </Spacer>
             </TouchableOpacity>
           );

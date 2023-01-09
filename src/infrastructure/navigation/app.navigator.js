@@ -1,13 +1,14 @@
 import React from "react";
-import { Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import { ProductsNavigator } from "../navigation/products.navigator";
-import { SafeArea } from "../../components/utills/safe-area.component";
 import { MapScreen } from "../../features/map/screens/map.screen";
 import { FavoritesScreen } from "../../services/favorites/favorites.screen";
+import { FavoritesContextProvider } from "../../services/favorites/favorites.context";
+import { ProductsContextProvider } from "../../services/products/products.context";
+import { LocationContextProvider } from "../../services/location/location.context";
+import { SettingsNavigator } from "./settings.navigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,12 +18,6 @@ const TAB_ICON = {
   Account: "md-person",
   Favorites: "md-heart",
 };
-
-const Account = () => (
-  <SafeArea>
-    <Text>Account</Text>
-  </SafeArea>
-);
 
 const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
@@ -44,13 +39,17 @@ const createScreenOptions = ({ route }) => {
 
 export const AppNavigator = () => {
   return (
-    <NavigationContainer independent={true}>
-      <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen name="Home" component={ProductsNavigator} />
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Favorites" component={FavoritesScreen} />
-        <Tab.Screen name="Account" component={Account} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <FavoritesContextProvider>
+      <LocationContextProvider>
+        <ProductsContextProvider>
+          <Tab.Navigator screenOptions={createScreenOptions}>
+            <Tab.Screen name="Home" component={ProductsNavigator} />
+            <Tab.Screen name="Map" component={MapScreen} />
+            <Tab.Screen name="Favorites" component={FavoritesScreen} />
+            <Tab.Screen name="Account" component={SettingsNavigator} />
+          </Tab.Navigator>
+        </ProductsContextProvider>
+      </LocationContextProvider>
+    </FavoritesContextProvider>
   );
 };

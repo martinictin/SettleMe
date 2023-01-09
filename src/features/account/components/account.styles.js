@@ -13,7 +13,7 @@ export const AccountBackground = styled.ImageBackground.attrs({
 export const AccountContainer = styled.View`
   padding: ${(props) => props.theme.space[4]};
   margin-top: ${(props) => props.theme.space[2]};
-  width: 100%;
+  width: 90%;
 `;
 export const AuthButton = styled(Button).attrs({
   color: colors.colorList.gold,

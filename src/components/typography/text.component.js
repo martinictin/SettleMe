@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 const defaultTextStyles = (theme) => `
   font-family: ${theme.fonts.body};
   font-weight: ${theme.fontWeights.regular};
-  color: ${theme.colors.primary};
+  color: ${theme.colors.colorList.black};
   flex-wrap: wrap;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -18,7 +18,9 @@ const hint = (theme) => `
 `;
 
 const error = (theme) => `
-    color: ${theme.colors.error};
+    color: ${theme.colors.colorList.error};
+    font-weight: 900;
+  
 `;
 
 const caption = (theme) => `
