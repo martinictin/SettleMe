@@ -1,9 +1,9 @@
 import styled from "styled-components/native";
 import { Button, Text, TextInput } from "react-native-paper";
-import { colors } from "../../../infrastructure/theme/colors";
+import { colors } from "../../infrastructure/theme/colors";
 
 export const AccountBackground = styled.ImageBackground.attrs({
-  source: require("../../../../assets/settleme_bg.jpg"),
+  source: require("../../../assets/settleme_bg.jpg"),
 })`
   flex: 1;
   align-items: center;

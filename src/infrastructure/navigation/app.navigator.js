@@ -2,9 +2,9 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import { ProductsNavigator } from "../navigation/products.navigator";
-import { MapScreen } from "../../features/map/screens/map.screen";
-import { FavoritesScreen } from "../../services/favorites/favorites.screen";
+import { ProductsNavigator } from "./products.navigator";
+import { MapScreen } from "../../screens/map.screen";
+import { FavoritesScreen } from "../../screens/favorites.screen";
 import { FavoritesContextProvider } from "../../services/favorites/favorites.context";
 import { ProductsContextProvider } from "../../services/products/products.context";
 import { LocationContextProvider } from "../../services/location/location.context";

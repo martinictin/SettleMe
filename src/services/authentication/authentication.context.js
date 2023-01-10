@@ -1,10 +1,11 @@
 import React, { useState, createContext } from "react";
-import { loginRequest } from "../authentication/authentication.service";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
+
+import { loginRequest } from "./authentication.service";
 import { auth } from "../../../App";
 
 export const AuthenticationContext = createContext();
@@ -30,7 +31,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setUser(userCredentials.user);
         setIsLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setIsLoading(false);
         setError(error.toString());
       });

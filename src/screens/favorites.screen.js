@@ -3,10 +3,10 @@ import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
 
-import { SafeArea } from "../../components/utills/safe-area.component";
-import { Spacer } from "../../components/spacer/spacer.component";
-import { FavoritesContext } from "./favorites.context";
-import { FavoriteInfoCard } from "../../services/favorites/components/favorite-info-card.component";
+import { SafeArea } from "../utillities/utills/safe-area.component";
+import { Spacer } from "../utillities/spacer/spacer.component";
+import { FavoritesContext } from "../services/favorites/favorites.context";
+import { FavoriteInfoCard } from "../models/components/favorite-info-card.component";
 
 const FavoritesList = styled(FlatList).attrs({
   contentContainerStyle: {

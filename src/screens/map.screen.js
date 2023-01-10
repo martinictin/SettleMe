@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
 import styled from "styled-components";
-import { LocationContext } from "../../../services/location/location.context";
-import { ProductsContext } from "../../../services/products/products.context";
-import { Search } from "../components/search.component";
-import { MapCallout } from "../components/map-callout.component";
+
+import { LocationContext } from "../services/location/location.context";
+import { ProductsContext } from "../services/products/products.context";
+import { Search } from "../models/components/map-search.component";
+import { MapCallout } from "../models/components/map-callout.component";
 
 const Map = styled(MapView)`
   height: 100%;

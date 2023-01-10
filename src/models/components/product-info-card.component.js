@@ -1,23 +1,23 @@
 import React from "react";
 import { SvgXml } from "react-native-svg";
-import { Spacer } from "../../../components/spacer/spacer.component";
-import { Text } from "../../../components/typography/text.component";
-import star from "../../../../assets/star";
-import open from "../../../../assets/open";
-import { Favorite } from "../../../components/favorite/favorite.component";
 
+import { Spacer } from "../../utillities/spacer/spacer.component";
+import { Text } from "../../utillities/typography/text.component";
+import star from "../../../assets/star";
+import open from "../../../assets/open";
+import { Favorite } from "../components/favorite.component";
 import {
-  FavoriteCard,
-  FavoriteCardCover,
+  ProductCard,
+  ProductCardCover,
   Info,
   RatingSection,
   OpenedSection,
   Rating,
   Icon,
   Address,
-} from "./favorite-info-card.styles";
+} from "../styles/product-info-card.styles";
 
-export const FavoriteInfoCard = ({ favorite = {} }) => {
+export const ProductInfoCard = ({ product = {} }) => {
   const {
     name = "Some Restaurant",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
@@ -29,14 +29,14 @@ export const FavoriteInfoCard = ({ favorite = {} }) => {
     rating = 4,
     isClosedTemporarily = true,
     placeId,
-  } = favorite;
+  } = product;
 
   const ratingArray = Array.from(new Array(Math.floor(rating)));
 
   return (
-    <FavoriteCard elevation={5}>
-      <Favorite product={favorite} />
-      <FavoriteCardCover key={name} source={{ uri: photos[0] }} />
+    <ProductCard elevation={5}>
+      <Favorite product={product} />
+      <ProductCardCover key={name} source={{ uri: photos[0] }} />
       <Info>
         <Text variant="label">{name}</Text>
         <RatingSection>
@@ -64,6 +64,6 @@ export const FavoriteInfoCard = ({ favorite = {} }) => {
         </RatingSection>
         <Address>{address}</Address>
       </Info>
-    </FavoriteCard>
+    </ProductCard>
   );
 };

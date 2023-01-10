@@ -1,7 +1,9 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 
-import { productsRequest, productsTransform } from "./products.service";
-
+import {
+  productsRequest,
+  productsTransform,
+} from "../products/products.service";
 import { LocationContext } from "../location/location.context";
 
 export const ProductsContext = createContext();

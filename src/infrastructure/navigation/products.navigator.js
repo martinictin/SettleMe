@@ -1,12 +1,11 @@
 import React from "react";
-import { ProductDetailScreen } from "../../features/products/screens/product-detail.screen";
-
 import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
 
-import { ProductsScreen } from "../../features/products/screens/product.screen";
+import { ProductDetailScreen } from "../../screens/product-detail.screen";
+import { ProductsScreen } from "../../screens/product.screen";
 
 const ProductStack = createStackNavigator();
 

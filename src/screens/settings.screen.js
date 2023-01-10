@@ -3,12 +3,12 @@ import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-
 import { List, Avatar } from "react-native-paper";
-import { Text } from "../../../components/typography/text.component";
-import { Spacer } from "../../../components/spacer/spacer.component";
-import { SafeArea } from "../../../components/utills/safe-area.component";
-import { AuthenticationContext } from "../../../services/authentication/authentication.context";
+
+import { Text } from "../utillities/typography/text.component";
+import { Spacer } from "../utillities/spacer/spacer.component";
+import { SafeArea } from "../utillities/utills/safe-area.component";
+import { AuthenticationContext } from "../services/authentication/authentication.context";
 
 const SettingsItem = styled(List.Item)`
   padding: ${(props) => props.theme.space[3]};

@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
-import { SafeArea } from "../../../components/utills/safe-area.component";
-import { Spacer } from "../../../components/spacer/spacer.component";
-import { ProductsContext } from "../../../services/products/products.context";
-import { Search } from "../components/search.component";
-import { ProductInfoCard } from "../components/product-info-card.component";
-import { FadeInView } from "../../../components/animations/fade.animation";
+
+import { SafeArea } from "../utillities/utills/safe-area.component";
+import { Spacer } from "../utillities/spacer/spacer.component";
+import { ProductsContext } from "../services/products/products.context";
+import { Search } from "../models/components/search.component";
+import { ProductInfoCard } from "../models/components/product-info-card.component";
+import { FadeInView } from "../utillities/animations/fade.animation";
 
 const ProductList = styled(FlatList).attrs({
   contentContainerStyle: {

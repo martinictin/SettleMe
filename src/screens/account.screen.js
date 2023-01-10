@@ -1,12 +1,12 @@
 import React from "react";
-import { Spacer } from "../../../components/spacer/spacer.component";
+
+import { Spacer } from "../utillities/spacer/spacer.component";
 import {
   AccountContainer,
+  AccountBackground,
   AuthButton,
   Title,
-} from "../components/account.styles";
-
-import { AccountBackground } from "../components/account.styles";
+} from "../models/styles/account.styles";
 
 export const AccountScreen = ({ navigation }) => {
   return (
