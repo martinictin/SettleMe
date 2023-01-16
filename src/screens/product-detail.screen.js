@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ScrollView } from "react-native";
 import { List } from "react-native-paper";
 
-import { ProductInfoCard } from "../models/components/product-info-card.component";
+import { ProductInfoCard } from "../data/components/product-info-card.component";
 import { SafeArea } from "../utillities/utills/safe-area.component";
 
 export const ProductDetailScreen = ({ route }) => {

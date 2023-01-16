@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components/native";
 import { Navigation } from "./src/infrastructure/navigation";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { firestore } from "@react-native-firebase/firestore";
 
 import {
   useFonts as useOswald,

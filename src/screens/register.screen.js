@@ -8,7 +8,7 @@ import {
   AuthInput,
   ErrorContainer,
   Title,
-} from "../models/styles/account.styles";
+} from "../data/styles/account.styles";
 import { Text } from "../utillities/typography/text.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
 import { AuthenticationContext } from "../services/authentication/authentication.context";

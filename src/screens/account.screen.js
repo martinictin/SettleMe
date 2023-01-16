@@ -6,7 +6,7 @@ import {
   AccountBackground,
   AuthButton,
   Title,
-} from "../models/styles/account.styles";
+} from "../data/styles/account.styles";
 
 export const AccountScreen = ({ navigation }) => {
   return (

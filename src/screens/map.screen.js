@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 import { LocationContext } from "../services/location/location.context";
 import { ProductsContext } from "../services/products/products.context";
-import { Search } from "../models/components/map-search.component";
-import { MapCallout } from "../models/components/map-callout.component";
+import { Search } from "../data/components/map-search.component";
+import { MapCallout } from "../data/components/map-callout.component";
 
 const Map = styled(MapView)`
   height: 100%;

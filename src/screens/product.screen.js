@@ -6,8 +6,8 @@ import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { SafeArea } from "../utillities/utills/safe-area.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
 import { ProductsContext } from "../services/products/products.context";
-import { Search } from "../models/components/search.component";
-import { ProductInfoCard } from "../models/components/product-info-card.component";
+import { Search } from "../data/components/search.component";
+import { ProductInfoCard } from "../data/components/product-info-card.component";
 import { FadeInView } from "../utillities/animations/fade.animation";
 
 const ProductList = styled(FlatList).attrs({
