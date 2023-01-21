@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
 import styled from "styled-components";
 
-import { LocationContext } from "../services/location/location.context";
-import { ProductsContext } from "../services/products/products.context";
+import { LocationContext } from "../contexts/location.context";
+import { ProductsContext } from "../contexts/products.context";
 import { Search } from "../data/components/map-search.component";
 import { MapCallout } from "../data/components/map-callout.component";
 

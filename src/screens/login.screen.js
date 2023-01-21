@@ -11,7 +11,7 @@ import {
 } from "../data/styles/account.styles";
 import { Text } from "../utillities/typography/text.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
-import { AuthenticationContext } from "../services/authentication/authentication.context";
+import { AuthenticationContext } from "../contexts/authentication.context";
 
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");

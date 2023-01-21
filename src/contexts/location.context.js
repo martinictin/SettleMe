@@ -1,6 +1,9 @@
 import React, { useState, useEffect, createContext } from "react";
 
-import { locationRequest, locationTransform } from "./location.service";
+import {
+  locationRequest,
+  locationTransform,
+} from "../services/location.service";
 
 export const LocationContext = createContext();
 

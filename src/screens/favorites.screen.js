@@ -5,7 +5,7 @@ import { ActivityIndicator, MD2Colors } from "react-native-paper";
 
 import { SafeArea } from "../utillities/utills/safe-area.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
-import { FavoritesContext } from "../services/favorites/favorites.context";
+import { FavoritesContext } from "../contexts/favorites.context";
 import { FavoriteInfoCard } from "../data/components/favorite-info-card.component";
 
 const FavoritesList = styled(FlatList).attrs({

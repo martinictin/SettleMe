@@ -5,8 +5,9 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { loginRequest } from "./authentication.service";
-import { auth } from "../../../App";
+import { loginRequest } from "../services/authentication.service";
+import { auth } from "../utillities/firebase";
+import { Alert } from "react-native";
 
 export const AuthenticationContext = createContext();
 
@@ -31,9 +32,10 @@ export const AuthenticationContextProvider = ({ children }) => {
         setUser(userCredentials.user);
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((e) => {
+        Alert.alert("error:", e.message);
         setIsLoading(false);
-        setError(error.toString());
+        setError(e.toString());
       });
   };
 

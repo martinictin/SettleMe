@@ -8,7 +8,7 @@ import { List, Avatar } from "react-native-paper";
 import { Text } from "../utillities/typography/text.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
 import { SafeArea } from "../utillities/utills/safe-area.component";
-import { AuthenticationContext } from "../services/authentication/authentication.context";
+import { AuthenticationContext } from "../contexts/authentication.context";
 
 const SettingsItem = styled(List.Item)`
   padding: ${(props) => props.theme.space[3]};

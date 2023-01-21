@@ -5,9 +5,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { ProductsNavigator } from "./products.navigator";
 import { MapScreen } from "../../screens/map.screen";
 import { FavoritesScreen } from "../../screens/favorites.screen";
-import { FavoritesContextProvider } from "../../services/favorites/favorites.context";
-import { ProductsContextProvider } from "../../services/products/products.context";
-import { LocationContextProvider } from "../../services/location/location.context";
+import { FavoritesContextProvider } from "../../contexts/favorites.context";
+import { ProductsContextProvider } from "../../contexts/products.context";
+import { LocationContextProvider } from "../../contexts/location.context";
 import { SettingsNavigator } from "./settings.navigator";
 
 const Tab = createBottomTabNavigator();
