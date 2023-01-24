@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import MapView, { Marker, Callout } from "react-native-maps";
 import styled from "styled-components";
+import * as Location from "expo-location";
 
-import { LocationContext } from "../contexts/location.context";
 import { ProductsContext } from "../contexts/products.context";
-import { Search } from "../data/components/map-search.component";
 import { MapCallout } from "../data/components/map-callout.component";
 
 const Map = styled(MapView)`
@@ -13,29 +12,34 @@ const Map = styled(MapView)`
 `;
 
 export const MapScreen = ({ navigation }) => {
-  const { location } = useContext(LocationContext);
   const { products = [] } = useContext(ProductsContext);
+  const [userLocation, setUserLocation] = useState([]);
 
-  const [latDelta, setLatDelta] = useState(0);
+  const getUserLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+      return;
+    }
 
-  const { lat, lng, viewport } = location;
-
+    let location = await Location.getCurrentPositionAsync({});
+    setUserLocation({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    });
+  };
   useEffect(() => {
-    const northeastLat = viewport.northeast.lat;
-    const southwestLat = viewport.southwest.lat;
-
-    setLatDelta(northeastLat - southwestLat);
-  }, [location, viewport]);
+    getUserLocation();
+  }, [userLocation]);
 
   return (
     <>
-      <Search />
       <Map
         region={{
-          latitude: lat,
-          longitude: lng,
-          latitudeDelta: latDelta,
-          longitudeDelta: 0.2,
+          latitude: userLocation.latitude,
+          longitude: userLocation.longitude,
+          latitudeDelta: 0.8,
+          longitudeDelta: 0.8,
         }}
       >
         {products.map((product) => {
@@ -44,8 +48,8 @@ export const MapScreen = ({ navigation }) => {
               key={product.name}
               title={product.name}
               coordinate={{
-                latitude: product.geometry.location.lat,
-                longitude: product.geometry.location.lng,
+                latitude: product.latitude,
+                longitude: product.longitude,
               }}
             >
               <Callout

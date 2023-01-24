@@ -6,7 +6,6 @@ import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { SafeArea } from "../utillities/utills/safe-area.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
 import { ProductsContext } from "../contexts/products.context";
-import { Search } from "../data/components/search.component";
 import { ProductInfoCard } from "../data/components/product-info-card.component";
 import { FadeInView } from "../utillities/animations/fade.animation";
 
@@ -34,7 +33,7 @@ export const ProductsScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={MD2Colors.yellow500} />
         </LoadingContainer>
       )}
-      <Search />
+
       <ProductList
         data={products}
         renderItem={({ item }) => {
@@ -54,7 +53,7 @@ export const ProductsScreen = ({ navigation }) => {
             </TouchableOpacity>
           );
         }}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.id}
       />
     </SafeArea>
   );

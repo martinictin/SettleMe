@@ -1,42 +1,46 @@
 import styled from "styled-components/native";
 import { Card } from "react-native-paper";
 
-export const Icon = styled.Image`
-  width: 15px;
-  height: 15px;
-`;
-
 export const ProductCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.colorList.white};
-`;
-
-export const ProductCardCover = styled(Card.Cover)`
   padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.colorList.white};
+  outline: "transparent";
 `;
 
 export const Address = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  font-weight: bold;
 `;
 
 export const Info = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-`;
-
-export const Rating = styled.View`
-  flex-direction: row;
-  padding-top: ${(props) => props.theme.space[2]};
-  padding-bottom: ${(props) => props.theme.space[2]};
+  padding: ${(props) => props.theme.space[1]};
 `;
 
 export const RatingSection = styled.View`
+  padding-left: 88%;
   flex-direction: row;
-  align-items: center;
 `;
 
-export const OpenedSection = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-end;
+export const Rating = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  font-weight: bold;
+`;
+
+export const Title = styled.Text`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  font-weight: bold;
+`;
+
+export const Description = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.caption};
+  font-color: ${(props) => props.theme.colors.colorList.grey};
+`;
+
+export const ProductCardCover = styled(Card.Cover)`
+  padding: ${(props) => props.theme.space[1]};
+  background-color: ${(props) => props.theme.colors.colorList.white};
 `;

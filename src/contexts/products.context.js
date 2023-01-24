@@ -1,10 +1,7 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
-
-import {
-  productsRequest,
-  productsTransform,
-} from "../services/products.service";
-import { LocationContext } from "./location.context";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { db } from "../utillities/firebase";
+import { Alert } from "react-native";
 
 export const ProductsContext = createContext();
 
@@ -12,31 +9,24 @@ export const ProductsContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { location } = useContext(LocationContext);
 
-  const retrieveProducts = (loc) => {
-    setIsLoading(true);
-    setProducts([]);
-
-    setTimeout(() => {
-      productsRequest(loc)
-        .then(productsTransform)
-        .then((results) => {
-          setIsLoading(false);
-          setProducts(results);
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          setError(err);
-        });
-    }, 2000);
-  };
   useEffect(() => {
-    if (location) {
-      const locationString = `${location.lat},${location.lng}`;
-      retrieveProducts(locationString);
+    setIsLoading(true);
+    try {
+      onSnapshot(query(collection(db, "product")), (querySnapshot) => {
+        let productList = [];
+        querySnapshot.forEach((doc) => {
+          productList.push({ ...doc.data(), id: doc.id });
+        });
+        setProducts(productList);
+        setIsLoading(false);
+      });
+    } catch (e) {
+      setError(e);
+      Alert.alert(e);
+      setIsLoading(false);
     }
-  }, [location]);
+  }, []);
 
   return (
     <ProductsContext.Provider

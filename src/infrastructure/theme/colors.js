@@ -3,7 +3,7 @@ export const colors = {
     gold: "#FFD700",
     lblack: "#454545",
     black: "#000000",
-    grey: "#424242",
+    grey: "#C0C0C0",
     disabled: "#DEDEDE",
     error: "#D0421B",
     success: "#138000",

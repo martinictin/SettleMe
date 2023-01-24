@@ -7,7 +7,6 @@ import { MapScreen } from "../../screens/map.screen";
 import { FavoritesScreen } from "../../screens/favorites.screen";
 import { FavoritesContextProvider } from "../../contexts/favorites.context";
 import { ProductsContextProvider } from "../../contexts/products.context";
-import { LocationContextProvider } from "../../contexts/location.context";
 import { SettingsNavigator } from "./settings.navigator";
 
 const Tab = createBottomTabNavigator();
@@ -40,16 +39,14 @@ const createScreenOptions = ({ route }) => {
 export const AppNavigator = () => {
   return (
     <FavoritesContextProvider>
-      <LocationContextProvider>
-        <ProductsContextProvider>
-          <Tab.Navigator screenOptions={createScreenOptions}>
-            <Tab.Screen name="Home" component={ProductsNavigator} />
-            <Tab.Screen name="Map" component={MapScreen} />
-            <Tab.Screen name="Favorites" component={FavoritesScreen} />
-            <Tab.Screen name="Account" component={SettingsNavigator} />
-          </Tab.Navigator>
-        </ProductsContextProvider>
-      </LocationContextProvider>
+      <ProductsContextProvider>
+        <Tab.Navigator screenOptions={createScreenOptions}>
+          <Tab.Screen name="Home" component={ProductsNavigator} />
+          <Tab.Screen name="Map" component={MapScreen} />
+          <Tab.Screen name="Favorites" component={FavoritesScreen} />
+          <Tab.Screen name="Account" component={SettingsNavigator} />
+        </Tab.Navigator>
+      </ProductsContextProvider>
     </FavoritesContextProvider>
   );
 };

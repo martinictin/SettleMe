@@ -21,7 +21,7 @@ export const FavoriteInfoCard = ({ favorite = {} }) => {
   const {
     name = "Some Restaurant",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-    photos = [
+    image = [
       "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
     ],
     address = "100 some random street",
@@ -36,7 +36,7 @@ export const FavoriteInfoCard = ({ favorite = {} }) => {
   return (
     <FavoriteCard elevation={5}>
       <Favorite product={favorite} />
-      <FavoriteCardCover key={name} source={{ uri: photos[0] }} />
+      <FavoriteCardCover key={name} source={{ uri: image[0] }} />
       <Info>
         <Text variant="label">{name}</Text>
         <RatingSection>
