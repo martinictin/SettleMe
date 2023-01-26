@@ -8,7 +8,8 @@ import {
   ProductCard,
   ProductCardCover,
   Info,
-  Address,
+  CardInfo,
+  CardInfoBold,
   RatingSection,
   Rating,
   Title,
@@ -24,6 +25,10 @@ export const ProductInfoCard = ({ product = {} }) => {
     description = "Some description",
     address = "100 some random street",
     rate = 4.5,
+    closing_at,
+    opening_at,
+    minimal_spending,
+    city,
   } = product;
 
   return (
@@ -32,16 +37,25 @@ export const ProductInfoCard = ({ product = {} }) => {
       <ProductCardCover source={{ uri: image[0] }} />
       <Info>
         <Title>{name}</Title>
+        <Spacer size="small" />
+        <CardInfo>{city}</CardInfo>
         <Spacer size="medium" />
         <Description>{description}</Description>
+        <Spacer size="medium" />
+        <CardInfo>
+          Open hours: {opening_at}-{closing_at}
+        </CardInfo>
         <Spacer size="small" />
-        <Address>{address}</Address>
+        <CardInfo>{address}</CardInfo>
+        <Spacer size="small" />
+        <CardInfoBold>
+          {minimal_spending}€ <CardInfo>/ reservation</CardInfo>{" "}
+        </CardInfoBold>
       </Info>
       <RatingSection>
         <SvgXml xml={star} width={20} height={15} />
         <Rating>{rate}</Rating>
       </RatingSection>
-      <Spacer size="large" />
     </ProductCard>
   );
 };

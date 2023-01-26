@@ -3,6 +3,11 @@ import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../utillities/firebase";
 import { Alert } from "react-native";
 
+import {
+  getProductsByCity,
+  getProductByName,
+} from "../services/product.service";
+
 export const ProductsContext = createContext();
 
 export const ProductsContextProvider = ({ children }) => {

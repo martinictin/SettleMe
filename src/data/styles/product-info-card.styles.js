@@ -7,9 +7,14 @@ export const ProductCard = styled(Card)`
   outline: "transparent";
 `;
 
-export const Address = styled.Text`
-  font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.button};
+export const CardInfo = styled.Text`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.caption};
+`;
+
+export const CardInfoBold = styled.Text`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.caption};
   font-weight: bold;
 `;
 
@@ -37,7 +42,7 @@ export const Title = styled.Text`
 export const Description = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.caption};
-  font-color: ${(props) => props.theme.colors.colorList.grey};
+  color: ${(props) => props.theme.colors.colorList.grey};
 `;
 
 export const ProductCardCover = styled(Card.Cover)`

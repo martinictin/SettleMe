@@ -3,6 +3,7 @@ import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
 
+import { Search } from "../data/components/search.component";
 import { SafeArea } from "../utillities/utills/safe-area.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
 import { ProductsContext } from "../contexts/products.context";
@@ -33,7 +34,7 @@ export const ProductsScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={MD2Colors.yellow500} />
         </LoadingContainer>
       )}
-
+      <Search />
       <ProductList
         data={products}
         renderItem={({ item }) => {

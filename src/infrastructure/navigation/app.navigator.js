@@ -18,6 +18,11 @@ const TAB_ICON = {
   Favorites: "md-heart",
 };
 
+const iconStyle = {
+  stroke: "white",
+  fill: "black",
+};
+
 const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
   return {
@@ -26,7 +31,8 @@ const createScreenOptions = ({ route }) => {
     ),
     headerShown: false,
     tabBarActiveTintColor: "gold",
-    tabBarInactiveTintColor: "black",
+    tabBarInactiveTintColor: "grey",
+
     tabBarStyle: [
       {
         display: "flex",

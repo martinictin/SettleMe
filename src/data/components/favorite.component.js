@@ -7,9 +7,9 @@ import { FavoritesContext } from "../../contexts/favorites.context";
 
 const FavoriteButton = styled(TouchableOpacity)`
   position: absolute;
-  top: 25px;
-  right: 25px;
-  z-index: 9;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
 `;
 
 export const Favorite = ({ product }) => {
@@ -26,7 +26,7 @@ export const Favorite = ({ product }) => {
     >
       <AntDesign
         name={isFavorite ? "heart" : "hearto"}
-        size={24}
+        size={20}
         color={isFavorite ? "red" : "white"}
       />
     </FavoriteButton>
