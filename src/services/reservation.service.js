@@ -8,7 +8,6 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { db, auth } from "../utillities/firebase";
-import { firebase } from "@react-native-firebase/firestore";
 
 export const getReservationsByUser = async (userId) => {
   try {
@@ -34,7 +33,7 @@ export const setReservationByUser = async (year, month, date, hour, minute) => {
   await setDoc(
     doc(db, "reservation").add({
       userId: userID,
-      reserved_at: firebase.firestore.Timestamp.now(),
+      reserved_at: Timestamp.now(),
       reservation_time: Timestamp.fromDate(
         new Date(year, month, date, hour, minute, 0)
       ),
