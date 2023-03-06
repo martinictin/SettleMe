@@ -5,9 +5,11 @@ import { Searchbar } from "react-native-paper";
 import { ProductsContext } from "../../contexts/products.context";
 
 const SearchContainer = styled.View`
-  padding-top: ${(props) => props.theme.space[3]};
+  padding-top: ${(props) => props.theme.space[2]};
+  padding-bottom: ${(props) => props.theme.space[2]};
   padding-left: ${(props) => props.theme.space[3]};
   padding-right: ${(props) => props.theme.space[3]};
+  background-color: ${(props) => props.theme.colors.colorList.white};
 `;
 
 const searchBarStyle = {
@@ -25,7 +27,6 @@ export const Search = () => {
   return (
     <SearchContainer>
       <Searchbar
-        elevation={5}
         iconColor="black"
         placeholderTextColor={"grey"}
         style={searchBarStyle}

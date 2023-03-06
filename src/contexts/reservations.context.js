@@ -3,22 +3,22 @@ import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../utillities/firebase";
 import { Alert } from "react-native";
 
-export const ProductsContext = createContext();
+export const ReservationContext = createContext();
 
-export const ProductsContextProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
+export const ReservationContextProvider = ({ children }) => {
+  const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
     try {
-      onSnapshot(query(collection(db, "product")), (querySnapshot) => {
-        let productList = [];
+      onSnapshot(query(collection(db, "reservation")), (querySnapshot) => {
+        let reservationList = [];
         querySnapshot.forEach((doc) => {
-          productList.push({ ...doc.data(), id: doc.id });
+          reservationList.push({ ...doc.data(), id: doc.id });
         });
-        setProducts(productList);
+        setReservations(reservationList);
         setIsLoading(false);
       });
     } catch (e) {
@@ -29,14 +29,14 @@ export const ProductsContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <ProductsContext.Provider
+    <ReservationContext.Provider
       value={{
-        products,
+        reservations,
         isLoading,
         error,
       }}
     >
       {children}
-    </ProductsContext.Provider>
+    </ReservationContext.Provider>
   );
 };
