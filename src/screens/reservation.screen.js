@@ -3,9 +3,9 @@ import styled from "styled-components/native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { FlashList } from "@shopify/flash-list";
 import { SafeArea } from "../utillities/utills/safe-area.component";
-import { Spacer } from "../utillities/spacer/spacer.component";
 import { ReservationContext } from "../contexts/reservations.context";
 import { ReservationInfoCard } from "../data/components/reservation-info-card.component";
+import { TitleText, TitleContainer } from "../data/styles/title.styles";
 import { getReservationsByUser } from "../services/reservation.service";
 import { setReservationByUser } from "../services/reservation.service";
 import { auth } from "../utillities/firebase";
@@ -33,6 +33,9 @@ export const ReservationScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={MD2Colors.yellow500} />
         </LoadingContainer>
       )}
+      <TitleContainer>
+        <TitleText>Reservations</TitleText>
+      </TitleContainer>
       <FlashList
         data={reservations}
         renderItem={({ item }) => {

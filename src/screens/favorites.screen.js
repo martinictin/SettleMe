@@ -7,6 +7,7 @@ import { SafeArea } from "../utillities/utills/safe-area.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
 import { FavoritesContext } from "../contexts/favorites.context";
 import { FavoriteInfoCard } from "../data/components/favorite-info-card.component";
+import { TitleText, TitleContainer } from "../data/styles/title.styles";
 
 const FavoritesList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -32,6 +33,9 @@ export const FavoritesScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={MD2Colors.yellow500} />
         </LoadingContainer>
       )}
+      <TitleContainer>
+        <TitleText>Favorites</TitleText>
+      </TitleContainer>
       <FavoritesList
         data={favorites}
         renderItem={({ item }) => {

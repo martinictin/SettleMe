@@ -53,7 +53,7 @@ export const ProductInfoCard = ({ product = {} }) => {
         </CardInfoBold>
       </Info>
       <RatingSection>
-        <SvgXml xml={star} width={20} height={15} />
+        <SvgXml xml={star} width={20} height={20} />
         <Rating>{rate}</Rating>
       </RatingSection>
     </ProductCard>

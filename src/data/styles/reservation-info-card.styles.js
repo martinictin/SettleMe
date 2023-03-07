@@ -39,9 +39,9 @@ export const ReservationOutlineBox = styled.View`
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 5%;
-  border-width: 2px;
+  border-width: 1px;
   border-radius: 10px;
-  border-color: ${(props) => props.theme.colors.colorList.lgold};
+  border-color: ${(props) => props.theme.colors.colorList.lgrey};
 `;
 
 export const CardInfoBold = styled.Text`

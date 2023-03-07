@@ -15,7 +15,8 @@ const SearchContainer = styled.View`
 const searchBarStyle = {
   backgroundColor: "white",
   borderRadius: 20,
-  outlineColor: "grey",
+  borderWidth: 1,
+  borderColor: "#C0C0C0",
 };
 
 export const Search = () => {
@@ -27,7 +28,7 @@ export const Search = () => {
   return (
     <SearchContainer>
       <Searchbar
-        iconColor="black"
+        iconColor="#C0C0C0"
         placeholderTextColor={"grey"}
         style={searchBarStyle}
         placeholder="Where to..."
