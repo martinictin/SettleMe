@@ -8,7 +8,7 @@ import {
   CardInfoBold,
   Title,
   ReservationInfo,
-  ReservationOutlineBox,
+  ItemSeparator,
   ConfirmationSection,
 } from "../styles/reservation-info-card.styles";
 
@@ -27,7 +27,8 @@ export const ReservationInfoCard = ({ product = {}, reservation = {} }) => {
   } = reservation;
 
   return (
-    <ReservationOutlineBox>
+    <ItemSeparator>
+      <Spacer size="large" />
       <Info>
         <ReservationImage source={{ uri: image[0] }} />
         <ReservationInfo>
@@ -53,6 +54,7 @@ export const ReservationInfoCard = ({ product = {}, reservation = {} }) => {
           </ConfirmationSection>
         </ReservationInfo>
       </Info>
-    </ReservationOutlineBox>
+      <Spacer size="large" />
+    </ItemSeparator>
   );
 };

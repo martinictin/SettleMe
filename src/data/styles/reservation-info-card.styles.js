@@ -35,17 +35,14 @@ export const ReservationInfo = styled.View`
   display: flex;
 `;
 
-export const ReservationOutlineBox = styled.View`
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
-  border-width: 1px;
-  border-radius: 10px;
-  border-color: ${(props) => props.theme.colors.colorList.lgrey};
-`;
-
 export const CardInfoBold = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.caption};
   font-weight: bold;
+`;
+
+export const ItemSeparator = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: ${(props) => props.theme.colors.colorList.lgold};
 `;

@@ -38,8 +38,8 @@ export const MapScreen = ({ navigation }) => {
         region={{
           latitude: userLocation.latitude,
           longitude: userLocation.longitude,
-          latitudeDelta: 0.5,
-          longitudeDelta: 0.5,
+          latitudeDelta: 0.3,
+          longitudeDelta: 0.3,
         }}
       >
         {products.map((product) => {
