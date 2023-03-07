@@ -11,5 +11,6 @@ export const TitleContainer = styled.View`
 export const TitleText = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.h4};
+  color: ${(props) => props.theme.colors.colorList.black};
   font-weight: bold;
 `;

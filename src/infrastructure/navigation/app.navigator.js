@@ -38,6 +38,7 @@ const createScreenOptions = ({ route }) => {
 
     tabBarStyle: [
       {
+        backgroundColor: "#232023",
         display: "flex",
       },
       null,

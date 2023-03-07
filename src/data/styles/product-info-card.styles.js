@@ -36,6 +36,7 @@ export const Rating = styled.Text`
 export const Title = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.button};
+  color: ${(props) => props.theme.colors.colorList.black};
   font-weight: bold;
 `;
 
