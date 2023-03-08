@@ -19,7 +19,7 @@ export const Info = styled.View`
 `;
 
 export const RatingSection = styled.View`
-  padding-left: 70%;
+  padding-left: 60%;
   flex-direction: row;
 `;
 

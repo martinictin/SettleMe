@@ -11,10 +11,11 @@ import {
   ItemSeparator,
   ConfirmationSection,
 } from "../styles/reservation-info-card.styles";
+import { auth } from "../../utillities/firebase";
 
 export const ReservationInfoCard = ({ product = {}, reservation = {} }) => {
   const {
-    name = "Some Restaurant",
+    name = "Restaurant name",
     image = [
       "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
     ],
@@ -24,7 +25,10 @@ export const ReservationInfoCard = ({ product = {}, reservation = {} }) => {
   const {
     reserved_at = "27/2/2023 16:00",
     reservation_time = "27/2/2023 16:00",
+    status = "Pending",
   } = reservation;
+
+  const user = auth.currentUser;
 
   return (
     <ItemSeparator>
@@ -45,12 +49,11 @@ export const ReservationInfoCard = ({ product = {}, reservation = {} }) => {
             <CardInfoBold>Reservation time: </CardInfoBold>
             {reservation_time.toDate().toLocaleString()}
           </CardInfo>
+          <CardInfoBold>{user.email}</CardInfoBold>
           <Spacer size="large" position="top" />
           <ConfirmationSection>
             <Ionicons name="md-checkmark-circle-outline" color={"gold"} />
-            Confirmed
-            <Ionicons name="md-time" color={"grey"} />
-            Pending
+            {status}
           </ConfirmationSection>
         </ReservationInfo>
       </Info>
