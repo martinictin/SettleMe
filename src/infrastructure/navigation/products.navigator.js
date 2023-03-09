@@ -4,8 +4,8 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 
-import { ProductDetailScreen } from "../../screens/product-detail.screen";
 import { ProductsScreen } from "../../screens/product.screen";
+import { ProductDetailScreen } from "../../screens/product-detail.screen";
 
 const ProductStack = createStackNavigator();
 

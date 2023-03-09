@@ -21,10 +21,6 @@ export const ReservationNavigator = () => {
         name="Reservations"
         component={ReservationScreen}
       />
-      <ReservationStack.Screen
-        name="ReservationDetail"
-        component={ReservationDetailScreen}
-      />
     </ReservationStack.Navigator>
   );
 };
