@@ -9,6 +9,7 @@ import { Text } from "../utillities/typography/text.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
 import { SafeArea } from "../utillities/utills/safe-area.component";
 import { AuthenticationContext } from "../contexts/authentication.context";
+import { AccountInformationScreen } from "./account-information.screen";
 
 const SettingsItem = styled(List.Item)`
   padding: ${(props) => props.theme.space[3]};
@@ -62,7 +63,18 @@ export const SettingsScreen = ({ navigation }) => {
         </Spacer>
       </AvatarContainer>
       <BlankSpace />
+
       <List.Section>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("AccountInformation")}
+        >
+          <SettingsItem
+            title="Account information"
+            left={(props) => (
+              <List.Icon {...props} color="#FFD700" icon="cog-sync-outline" />
+            )}
+          />
+        </TouchableOpacity>
         <SettingsItem
           title="Logout"
           left={(props) => <List.Icon {...props} color="#FFD700" icon="door" />}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Spacer } from "../../utillities/spacer/spacer.component";
 import {
@@ -11,34 +11,42 @@ import {
   ItemSeparator,
   ConfirmationSection,
 } from "../styles/reservation-info-card.styles";
-import { auth } from "../../utillities/firebase";
+import { getProductByName } from "../../services/product.service";
 
-export const ReservationInfoCard = ({ product = {}, reservation = {} }) => {
+export const ReservationInfoCard = ({ reservation = {} }) => {
+  const [data, setData] = useState(null);
   const {
-    name = "Restaurant name",
-    image = [
-      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
-    ],
-    city = "Split",
-  } = product;
-
-  const {
+    product_name = "Restaurant name",
+    reserved_by = "example@mail.com",
     reserved_at = "27/2/2023 16:00",
     reservation_time = "27/2/2023 16:00",
     status = "Pending",
   } = reservation;
 
-  const user = auth.currentUser;
+  const {
+    image = [
+      "https://lelolobi.com/wp-content/uploads/2021/11/Test-Logo-Small-Black-transparent-1-1.png",
+    ],
+    city = "split",
+    name = "restaurant name",
+  } = data;
+
+  useEffect(() => {
+    const unsubscribe = getProductByName(product_name).then((result) => {
+      setData(result);
+    });
+    return () => unsubscribe();
+  });
 
   return (
     <ItemSeparator>
       <Spacer size="large" />
       <Info>
-        <ReservationImage source={{ uri: image[0] }} />
+        <ReservationImage source={{ uri: data.image[0] }} />
         <ReservationInfo>
-          <Title>{name}</Title>
+          <Title>{data.name}</Title>
           <Spacer size="small" />
-          <CardInfo>{city}</CardInfo>
+          <CardInfo>{data.city}</CardInfo>
           <Spacer size="small" />
           <CardInfo>
             <CardInfoBold>Reserved at: </CardInfoBold>
@@ -49,7 +57,7 @@ export const ReservationInfoCard = ({ product = {}, reservation = {} }) => {
             <CardInfoBold>Reservation time: </CardInfoBold>
             {reservation_time.toDate().toLocaleString()}
           </CardInfo>
-          <CardInfoBold>{user.email}</CardInfoBold>
+          <CardInfoBold>{reserved_by}</CardInfoBold>
           <Spacer size="large" position="top" />
           <ConfirmationSection>
             <Ionicons name="md-checkmark-circle-outline" color={"gold"} />

@@ -1,12 +1,10 @@
 import {
   collection,
   query,
-  onSnapshot,
   where,
-  doc,
-  setDoc,
   Timestamp,
   getDocs,
+  addDoc,
 } from "firebase/firestore";
 import { db, auth } from "../utillities/firebase";
 
@@ -22,16 +20,15 @@ export const getReservationsByUser = async () => {
   });
   return reservations;
 };
-export function setReservationByUser(year, month, date, hour, minute) {
-  const userID = auth.currentUser.uid;
 
-  setDoc(
-    doc(db, "reservation").add({
-      userId: userID,
-      reserved_at: Timestamp.now(),
-      reservation_time: Timestamp.fromDate(
-        new Date(year, month, date, hour, minute, 0)
-      ),
-    })
-  );
-}
+export const setReservationByUser = async (date, product) => {
+  const userEmail = auth.currentUser.email;
+
+  await addDoc(collection(db, "reservation"), {
+    reserved_by: userEmail,
+    reserved_at: Timestamp.now(),
+    reservation_time: Timestamp.fromDate(new Date(date)),
+    status: "Pending",
+    product: product.name,
+  });
+};

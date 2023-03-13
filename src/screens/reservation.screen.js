@@ -6,7 +6,6 @@ import { SafeArea } from "../utillities/utills/safe-area.component";
 import { ReservationInfoCard } from "../data/components/reservation-info-card.component";
 import { TitleText, TitleContainer } from "../data/styles/title.styles";
 import { getReservationsByUser } from "../services/reservation.service";
-import { auth } from "../utillities/firebase";
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -39,8 +38,7 @@ export const ReservationScreen = ({ navigation }) => {
     setEmpty(true);
     const fetchUserReservationData = async () => {
       try {
-        const reservations = await getReservationsByUser();
-        setReservations(reservations);
+        setReservations(await getReservationsByUser());
         setIsLoading(false);
         if (reservations.length > 0) {
           setEmpty(false);
@@ -53,7 +51,7 @@ export const ReservationScreen = ({ navigation }) => {
     };
 
     fetchUserReservationData();
-  }, []);
+  }, [reservations.length]);
 
   return (
     <SafeArea>

@@ -6,6 +6,7 @@ import {
 
 import { SettingsScreen } from "../../screens/settings.screen";
 import { CameraScreen } from "../../screens/camera.screen";
+import { AccountInformationScreen } from "../../screens/account-information.screen";
 
 const SettingsStack = createStackNavigator();
 
@@ -32,6 +33,14 @@ export const SettingsNavigator = ({ route, navigation }) => {
         }}
         name="Camera"
         component={CameraScreen}
+      />
+
+      <SettingsStack.Screen
+        options={{
+          header: () => null,
+        }}
+        name="AccountInformation"
+        component={AccountInformationScreen}
       />
     </SettingsStack.Navigator>
   );

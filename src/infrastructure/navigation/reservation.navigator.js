@@ -4,7 +4,6 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 
-import { ReservationDetailScreen } from "../../screens/reservation-detail.screen";
 import { ReservationScreen } from "../../screens/reservation.screen";
 
 const ReservationStack = createStackNavigator();
