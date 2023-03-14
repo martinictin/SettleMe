@@ -1,102 +1,192 @@
-import React, { useState, useEffect } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import React, { useContext, useCallback, useState } from "react";
+import styled from "styled-components/native";
+import { TouchableOpacity, ActivityIndicator, MD2Colors } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
+import { Avatar } from "react-native-paper";
+
+import {
+  AccountContainer,
+  AuthButton,
+  AuthInput,
+  ErrorContainer,
+} from "../data/styles/account.styles";
+import { Spacer } from "../utillities/spacer/spacer.component";
 import { SafeArea } from "../utillities/utills/safe-area.component";
-import { auth, db } from "../utillities/firebase";
-import { collection, getDoc } from "firebase/firestore";
+import { Text } from "../utillities/typography/text.component";
+import { AuthenticationContext } from "../contexts/authentication.context";
+import { changeAccountInfo } from "../services/authentication.service";
+import { auth } from "../utillities/firebase";
 
-export const AccountInformationScreen = () => {
-  const [firstName, setFirstName] = useState("");
+export const AccountInformationScreen = ({ navigation }) => {
+  const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatedPassword, setRepeatedPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const { error, isLoading } = useState(false);
+  const { user } = useContext(AuthenticationContext);
 
-  // useEffect(() => {
-  //   // Fetch the user's information from Firestore and update state
-  //   const userId = auth.currentUser.uid;
-  //   const userRef = collection(db, "user").getDoc(userId);
+  const AvatarContainer = styled.View`
+    align-items: center;
+  `;
 
-  //   userRef
-  //     .get()
-  //     .then((doc) => {
-  //       if (doc.exists) {
-  //         const data = doc.data();
-  //         setFirstName(data.firstName);
-  //         setLastName(data.lastName);
-  //         setPhoneNumber(data.phoneNumber);
-  //       } else {
-  //         console.log("No such document!");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error getting document:", error);
-  //     });
-  // }, []);
+  const [photo, setPhoto] = useState(null);
 
-  // const handleUpdate = () => {
-  //   setIsLoading(true);
+  const getProfilePicture = async (currentUser) => {
+    const photoUri = await AsyncStorage.getItem(`${currentUser.uid}-photo`);
+    setPhoto(photoUri);
+  };
 
-  //   const userId = auth.currentUser.uid;
-  //   const userRef = collection(db, "user").getDoc(userId);
-
-  //   // Update the user's information in Firestore
-  //   userRef
-  //     .update({
-  //       first_name: firstName,
-  //       last_name: lastName,
-  //       phone_number: phoneNumber,
-  //     })
-  //     .then(() => {
-  //       console.log("User information updated successfully!");
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating user information:", error);
-  //       setIsLoading(false);
-  //     });
-  // };
+  useFocusEffect(
+    useCallback(() => {
+      getProfilePicture(user);
+    }, [user])
+  );
 
   return (
     <SafeArea>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder="First Name"
-          value={firstName}
-          onChangeText={setFirstName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Last Name"
-          value={lastName}
-          onChangeText={setLastName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Phone number"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-        />
-        {/* <Button
-        title={isLoading ? "Updating..." : "Update"}
-        onPress={handleUpdate}
-        disabled={isLoading}
-      /> */}
-      </View>
+      <Spacer size="large" />
+      <AvatarContainer>
+        <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
+          {!photo && (
+            <Avatar.Icon
+              size={100}
+              icon="account"
+              style={{ backgroundColor: "#FFFFFF" }}
+              color="#FFD700"
+            />
+          )}
+          {photo && (
+            <Avatar.Image
+              size={100}
+              source={{ uri: photo }}
+              backgroundColor="black"
+            />
+          )}
+        </TouchableOpacity>
+        <Spacer position="top" size="large">
+          <Text variant="label">{user.email}</Text>
+        </Spacer>
+      </AvatarContainer>
+
+      <AccountContainer>
+        {user.name ? (
+          <AuthInput
+            label={user.name}
+            value={name}
+            backgroundColor="#FFFFFF"
+            autoCapitalize="none"
+            onChangeText={(u) => setName(u)}
+          />
+        ) : (
+          <AuthInput
+            label="Name"
+            value={name}
+            backgroundColor="#FFFFFF"
+            textColor="#232023"
+            autoCapitalize="none"
+            onChangeText={(u) => setName(u)}
+          />
+        )}
+        <Spacer size="large">
+          {user.lastName ? (
+            <AuthInput
+              label={user.lastName}
+              value={lastName}
+              backgroundColor="#FFFFFF"
+              autoCapitalize="none"
+              onChangeText={(u) => setLastName(u)}
+            />
+          ) : (
+            <AuthInput
+              label="Last Name"
+              value={lastName}
+              backgroundColor="#FFFFFF"
+              autoCapitalize="none"
+              onChangeText={(u) => setLastName(u)}
+            />
+          )}
+        </Spacer>
+        <Spacer size="large">
+          {user.phoneNumber ? (
+            <AuthInput
+              label={user.phoneNumber}
+              value={phoneNumber}
+              backgroundColor="#FFFFFF"
+              autoCapitalize="none"
+              onChangeText={(u) => setPhoneNumber(u)}
+            />
+          ) : (
+            <AuthInput
+              label="Phone Number"
+              value={phoneNumber}
+              backgroundColor="#FFFFFF"
+              autoCapitalize="none"
+              onChangeText={(u) => setPhoneNumber(u)}
+            />
+          )}
+        </Spacer>
+        <Spacer size="large">
+          <AuthInput
+            label="Password"
+            value={password}
+            textContentType="password"
+            backgroundColor="#FFFFFF"
+            secureTextEntry
+            autoCapitalize="none"
+            onChangeText={(p) => setPassword(p)}
+          />
+        </Spacer>
+        <Spacer size="large">
+          <AuthInput
+            label="Repeat Password"
+            value={repeatedPassword}
+            backgroundColor="#FFFFFF"
+            textContentType="password"
+            secureTextEntry
+            autoCapitalize="none"
+            onChangeText={(p) => setRepeatedPassword(p)}
+          />
+        </Spacer>
+        {error && (
+          <ErrorContainer size="large">
+            <Text variant="error">{error}</Text>
+          </ErrorContainer>
+        )}
+        <Spacer size="large">
+          {!isLoading ? (
+            <AuthButton
+              mode="contained"
+              textColor="gold"
+              buttonColor="black"
+              onPress={() =>
+                changeAccountInfo(
+                  name,
+                  lastName,
+                  phoneNumber,
+                  password,
+                  repeatedPassword
+                )
+              }
+            >
+              Submit
+            </AuthButton>
+          ) : (
+            <ActivityIndicator animating={true} color={MD2Colors.yellow500} />
+          )}
+        </Spacer>
+        <Spacer size="medium">
+          <AuthButton
+            mode="contained"
+            textColor="gold"
+            buttonColor="black"
+            onPress={() => navigation.goBack()}
+          >
+            Back
+          </AuthButton>
+        </Spacer>
+      </AccountContainer>
     </SafeArea>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  input: {
-    height: 40,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
-});

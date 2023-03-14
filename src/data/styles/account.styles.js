@@ -13,16 +13,18 @@ export const AccountBackground = styled.ImageBackground.attrs({
 export const AccountContainer = styled.View`
   padding: ${(props) => props.theme.space[4]};
   margin-top: ${(props) => props.theme.space[2]};
+  allign-items: center;
   width: 90%;
 `;
 export const AuthButton = styled(Button).attrs({
   color: colors.colorList.gold,
 })`
   padding: ${(props) => props.theme.space[2]};
+  allign-items: center;
 `;
 
 export const AuthInput = styled(TextInput)`
-  width: 300px;
+  width: 100%;
 `;
 
 export const Title = styled(Text)`

@@ -1,29 +1,74 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { collection, doc, update } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  query,
+  getDocs,
+  where,
+  doc,
+} from "firebase/firestore";
 import { auth, db } from "../utillities/firebase";
+import { Alert } from "react-native";
 
 export const loginRequest = (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
 
 export const changeAccountInfo = async (
   name,
-  lastName,
+  lastname,
   phoneNumber,
-  password
+  password,
+  repeatedPassword
 ) => {
-  const user = auth().currentUser;
-  try {
-    const userRef = collection(db, "user").doc(user.uid);
-    await userRef.update({
-      name,
-      lastName,
-      phoneNumber,
-      // only update password if a new password was entered
-      ...(password ? { password } : {}),
+  if (repeatedPassword === password) {
+    const q = query(
+      collection(db, "user"),
+      where("email", "==", auth.currentUser.email)
+    );
+
+    const querySnapshot = await getDocs(q);
+    let docID = "";
+    querySnapshot.forEach((doc) => {
+      docID = doc.id;
     });
-    alert("Changes saved successfully!");
-  } catch (error) {
-    console.error(error);
-    alert("An error occurred while saving changes.");
+    const user = doc(db, "user", docID);
+    if (password) {
+      try {
+        await updateDoc(user, {
+          name: name,
+          last_name: lastname,
+          phone_number: phoneNumber,
+          password: password,
+        });
+        Alert.alert("User info updated!");
+      } catch (e) {
+        Alert.alert("There has been trouble processing the request!");
+      }
+    }
+    if (password) {
+      try {
+        await updateDoc(user, {
+          name: name,
+          last_name: lastname,
+          phone_number: phoneNumber,
+        });
+        Alert.alert("User info updated!");
+      } catch (e) {
+        Alert.alert("There has been trouble processing the request!");
+      }
+    }
+  } else {
+    Alert.alert("Password doesn't match");
   }
+};
+
+export const setUserInfo = async (email, password) => {
+  await addDoc(collection(db, "user"), {
+    email: email,
+    password: password,
+    phone_number: null,
+    name: null,
+    last_name: null,
+  });
 };

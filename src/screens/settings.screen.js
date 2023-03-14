@@ -9,7 +9,6 @@ import { Text } from "../utillities/typography/text.component";
 import { Spacer } from "../utillities/spacer/spacer.component";
 import { SafeArea } from "../utillities/utills/safe-area.component";
 import { AuthenticationContext } from "../contexts/authentication.context";
-import { AccountInformationScreen } from "./account-information.screen";
 
 const SettingsItem = styled(List.Item)`
   padding: ${(props) => props.theme.space[3]};
@@ -41,23 +40,22 @@ export const SettingsScreen = ({ navigation }) => {
     <SafeArea>
       <BlankSpace />
       <AvatarContainer>
-        <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
-          {!photo && (
-            <Avatar.Icon
-              size={100}
-              icon="account"
-              style={{ backgroundColor: "#FFFFFF" }}
-              color="#FFD700"
-            />
-          )}
-          {photo && (
-            <Avatar.Image
-              size={100}
-              source={{ uri: photo }}
-              backgroundColor="black"
-            />
-          )}
-        </TouchableOpacity>
+        {!photo && (
+          <Avatar.Icon
+            size={100}
+            icon="account"
+            style={{ backgroundColor: "#FFFFFF" }}
+            color="#FFD700"
+          />
+        )}
+        {photo && (
+          <Avatar.Image
+            size={100}
+            source={{ uri: photo }}
+            backgroundColor="black"
+          />
+        )}
+
         <Spacer position="top" size="large">
           <Text variant="label">{user.email}</Text>
         </Spacer>

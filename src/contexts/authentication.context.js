@@ -5,7 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { loginRequest } from "../services/authentication.service";
+import { loginRequest, setUserInfo } from "../services/authentication.service";
 import { auth } from "../utillities/firebase";
 import { Alert } from "react-native";
 
@@ -54,6 +54,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setIsLoading(false);
         setError(e.toString());
       });
+    setUserInfo(email, password);
   };
 
   const onLogout = () => {
