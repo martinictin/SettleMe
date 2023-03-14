@@ -16,7 +16,6 @@ import { SafeArea } from "../utillities/utills/safe-area.component";
 import { Text } from "../utillities/typography/text.component";
 import { AuthenticationContext } from "../contexts/authentication.context";
 import { changeAccountInfo } from "../services/authentication.service";
-import { auth } from "../utillities/firebase";
 
 export const AccountInformationScreen = ({ navigation }) => {
   const [name, setName] = useState("");
