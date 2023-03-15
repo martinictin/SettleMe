@@ -1,12 +1,16 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useRef } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  getAuth,
 } from "firebase/auth";
 
-import { loginRequest, setUserInfo } from "../services/authentication.service";
-import { auth } from "../utillities/firebase";
+import {
+  getUserInfo,
+  loginRequest,
+  setUserInfo,
+} from "../services/authentication.service";
 import { Alert } from "react-native";
 
 export const AuthenticationContext = createContext();
@@ -15,6 +19,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const auth = useRef(getAuth()).current;
 
   onAuthStateChanged(auth, (usr) => {
     if (usr) {
@@ -54,14 +59,18 @@ export const AuthenticationContextProvider = ({ children }) => {
         setIsLoading(false);
         setError(e.toString());
       });
-    setUserInfo(email, password);
+    setUserInfo(email);
   };
 
   const onLogout = () => {
-    signOut().then(() => {
-      setUser(null);
-      setError(null);
-    });
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err);
+      });
   };
 
   return (

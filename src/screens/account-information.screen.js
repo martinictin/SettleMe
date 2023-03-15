@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState } from "react";
+import React, { useContext, useCallback, useState, useEffect } from "react";
 import styled from "styled-components/native";
 import { TouchableOpacity, ActivityIndicator, MD2Colors } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -15,14 +15,20 @@ import { Spacer } from "../utillities/spacer/spacer.component";
 import { SafeArea } from "../utillities/utills/safe-area.component";
 import { Text } from "../utillities/typography/text.component";
 import { AuthenticationContext } from "../contexts/authentication.context";
-import { changeAccountInfo } from "../services/authentication.service";
+import {
+  updateUserInfo,
+  getUserInfo,
+} from "../services/authentication.service";
 
 export const AccountInformationScreen = ({ navigation }) => {
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatedPassword, setRepeatedPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [userObj, setUserObj] = useState({
+    name: "",
+    lastName: "",
+    phoneNumber: "",
+    password: "",
+    reapeatedPassword: "",
+  });
+  const [photo, setPhoto] = useState(null);
   const { error, isLoading } = useState(false);
   const { user } = useContext(AuthenticationContext);
 
@@ -30,7 +36,14 @@ export const AccountInformationScreen = ({ navigation }) => {
     align-items: center;
   `;
 
-  const [photo, setPhoto] = useState(null);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getUserInfo();
+      setUserObj(data);
+    }
+
+    fetchData();
+  }, []);
 
   const getProfilePicture = async (currentUser) => {
     const photoUri = await AsyncStorage.getItem(`${currentUser.uid}-photo`);
@@ -42,6 +55,22 @@ export const AccountInformationScreen = ({ navigation }) => {
       getProfilePicture(user);
     }, [user])
   );
+
+  function handleNameChange(text) {
+    setUserObj((prevState) => ({ ...prevState, name: text }));
+  }
+  function handleLastNameChange(text) {
+    setUserObj((prevState) => ({ ...prevState, lastName: text }));
+  }
+  function handlePhoneNumberChange(text) {
+    setUserObj((prevState) => ({ ...prevState, phoneNumber: text }));
+  }
+  function handlePasswordChange(text) {
+    setUserObj((prevState) => ({ ...prevState, password: text }));
+  }
+  function handleReapetedPasswordChange(text) {
+    setUserObj((prevState) => ({ ...prevState, reapeatedPassword: text }));
+  }
 
   return (
     <SafeArea>
@@ -70,82 +99,77 @@ export const AccountInformationScreen = ({ navigation }) => {
       </AvatarContainer>
 
       <AccountContainer>
-        {user.name ? (
+        {userObj.name ? (
           <AuthInput
-            label={user.name}
-            value={name}
+            label="Name"
+            value={userObj.name}
             backgroundColor="#FFFFFF"
             autoCapitalize="none"
-            onChangeText={(u) => setName(u)}
+            onChangeText={(u) => handleNameChange(u)}
           />
         ) : (
           <AuthInput
             label="Name"
-            value={name}
             backgroundColor="#FFFFFF"
             textColor="#232023"
             autoCapitalize="none"
-            onChangeText={(u) => setName(u)}
+            onChangeText={(u) => handleNameChange(u)}
           />
         )}
         <Spacer size="large">
-          {user.lastName ? (
+          {userObj.lastName ? (
             <AuthInput
-              label={user.lastName}
-              value={lastName}
+              label="Last Name"
+              value={userObj.lastName}
               backgroundColor="#FFFFFF"
               autoCapitalize="none"
-              onChangeText={(u) => setLastName(u)}
+              onChangeText={(u) => handleLastNameChange(u)}
             />
           ) : (
             <AuthInput
               label="Last Name"
-              value={lastName}
               backgroundColor="#FFFFFF"
               autoCapitalize="none"
-              onChangeText={(u) => setLastName(u)}
+              onChangeText={(u) => handleLastNameChange(u)}
             />
           )}
         </Spacer>
         <Spacer size="large">
-          {user.phoneNumber ? (
+          {userObj.phoneNumber ? (
             <AuthInput
-              label={user.phoneNumber}
-              value={phoneNumber}
+              label="Phone number"
+              value={userObj.phoneNumber}
               backgroundColor="#FFFFFF"
               autoCapitalize="none"
-              onChangeText={(u) => setPhoneNumber(u)}
+              onChangeText={(u) => handlePhoneNumberChange(u)}
             />
           ) : (
             <AuthInput
               label="Phone Number"
-              value={phoneNumber}
               backgroundColor="#FFFFFF"
               autoCapitalize="none"
-              onChangeText={(u) => setPhoneNumber(u)}
+              onChangeText={(u) => handlePhoneNumberChange(u)}
             />
           )}
         </Spacer>
         <Spacer size="large">
           <AuthInput
             label="Password"
-            value={password}
             textContentType="password"
             backgroundColor="#FFFFFF"
             secureTextEntry
             autoCapitalize="none"
-            onChangeText={(p) => setPassword(p)}
+            onChangeText={(p) => handlePasswordChange(p)}
           />
         </Spacer>
         <Spacer size="large">
           <AuthInput
-            label="Repeat Password"
-            value={repeatedPassword}
+            label="Repeated Password"
             backgroundColor="#FFFFFF"
             textContentType="password"
             secureTextEntry
             autoCapitalize="none"
-            onChangeText={(p) => setRepeatedPassword(p)}
+            onChangeText={(p) => handleReapetedPasswordChange(p)}
           />
         </Spacer>
         {error && (
@@ -160,12 +184,12 @@ export const AccountInformationScreen = ({ navigation }) => {
               textColor="gold"
               buttonColor="black"
               onPress={() =>
-                changeAccountInfo(
-                  name,
-                  lastName,
-                  phoneNumber,
-                  password,
-                  repeatedPassword
+                updateUserInfo(
+                  userObj.name,
+                  userObj.lastName,
+                  userObj.phoneNumber,
+                  userObj.password,
+                  userObj.reapeatedPassword
                 )
               }
             >
