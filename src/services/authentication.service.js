@@ -31,28 +31,35 @@ export const getUserInfo = async () => {
   }
 };
 
-export const updateUserInfo = async (
-  name,
-  lastname,
-  phonenumber,
-  password,
-  repeatedpassword
-) => {
-  await updateDoc(doc(db, "user", user), {
-    name: name,
-    last_name: lastname,
-    phone_number: phonenumber,
-  });
+export const updateUserInfo = async (name, lastname, phonenumber) => {
+  console.log(phonenumber);
+  try {
+    await updateDoc(doc(db, "user", user), {
+      name: name,
+      last_name: lastname,
+      phone_number: phonenumber,
+    });
+    Alert.alert("User info changed successfully!");
+  } catch (e) {
+    Alert.alert(e);
+  }
+};
 
-  if (password === repeatedpassword) {
-    updatePassword(user, password)
-      .then(() => {
-        Alert.alert("Password changed!");
-      })
-      .catch((error) => {
-        Alert.alert(error);
-      });
+export const changePassword = (password, repeatedpassword) => {
+  console.log(password);
+  if (password) {
+    if (password === repeatedpassword) {
+      updatePassword(user, password)
+        .then(() => {
+          Alert.alert("Password changed!");
+        })
+        .catch((error) => {
+          Alert.alert("updatepw:", error);
+        });
+    } else {
+      Alert.alert("Password doesn't match");
+    }
   } else {
-    Alert.alert("Password doesn't match");
+    Alert.alert("Please enter password!");
   }
 };

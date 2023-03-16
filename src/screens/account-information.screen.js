@@ -18,13 +18,14 @@ import { AuthenticationContext } from "../contexts/authentication.context";
 import {
   updateUserInfo,
   getUserInfo,
+  changePassword,
 } from "../services/authentication.service";
 
 export const AccountInformationScreen = ({ navigation }) => {
   const [userObj, setUserObj] = useState({
     name: "",
-    lastName: "",
-    phoneNumber: "",
+    last_name: "",
+    phone_number: "",
     password: "",
     reapeatedPassword: "",
   });
@@ -39,7 +40,9 @@ export const AccountInformationScreen = ({ navigation }) => {
   useEffect(() => {
     async function fetchData() {
       const data = await getUserInfo();
-      setUserObj(data);
+      if (data) {
+        setUserObj(data);
+      }
     }
 
     fetchData();
@@ -60,10 +63,10 @@ export const AccountInformationScreen = ({ navigation }) => {
     setUserObj((prevState) => ({ ...prevState, name: text }));
   }
   function handleLastNameChange(text) {
-    setUserObj((prevState) => ({ ...prevState, lastName: text }));
+    setUserObj((prevState) => ({ ...prevState, last_name: text }));
   }
   function handlePhoneNumberChange(text) {
-    setUserObj((prevState) => ({ ...prevState, phoneNumber: text }));
+    setUserObj((prevState) => ({ ...prevState, phone_number: text }));
   }
   function handlePasswordChange(text) {
     setUserObj((prevState) => ({ ...prevState, password: text }));
@@ -117,10 +120,10 @@ export const AccountInformationScreen = ({ navigation }) => {
           />
         )}
         <Spacer size="large">
-          {userObj.lastName ? (
+          {userObj.last_name ? (
             <AuthInput
               label="Last Name"
-              value={userObj.lastName}
+              value={userObj.last_name}
               backgroundColor="#FFFFFF"
               autoCapitalize="none"
               onChangeText={(u) => handleLastNameChange(u)}
@@ -135,10 +138,10 @@ export const AccountInformationScreen = ({ navigation }) => {
           )}
         </Spacer>
         <Spacer size="large">
-          {userObj.phoneNumber ? (
+          {userObj.phone_number ? (
             <AuthInput
               label="Phone number"
-              value={userObj.phoneNumber}
+              value={userObj.phone_number}
               backgroundColor="#FFFFFF"
               autoCapitalize="none"
               onChangeText={(u) => handlePhoneNumberChange(u)}
@@ -150,6 +153,31 @@ export const AccountInformationScreen = ({ navigation }) => {
               autoCapitalize="none"
               onChangeText={(u) => handlePhoneNumberChange(u)}
             />
+          )}
+        </Spacer>
+        {error && (
+          <ErrorContainer size="large">
+            <Text variant="error">{error}</Text>
+          </ErrorContainer>
+        )}
+        <Spacer size="large">
+          {!isLoading ? (
+            <AuthButton
+              mode="contained"
+              textColor="gold"
+              buttonColor="black"
+              onPress={() =>
+                updateUserInfo(
+                  userObj.name,
+                  userObj.last_name,
+                  userObj.phone_number
+                )
+              }
+            >
+              Change Account Info
+            </AuthButton>
+          ) : (
+            <ActivityIndicator animating={true} color={MD2Colors.yellow500} />
           )}
         </Spacer>
         <Spacer size="large">
@@ -184,22 +212,17 @@ export const AccountInformationScreen = ({ navigation }) => {
               textColor="gold"
               buttonColor="black"
               onPress={() =>
-                updateUserInfo(
-                  userObj.name,
-                  userObj.lastName,
-                  userObj.phoneNumber,
-                  userObj.password,
-                  userObj.reapeatedPassword
-                )
+                changePassword(userObj.password, userObj.reapeatedPassword)
               }
             >
-              Submit
+              Change Password
             </AuthButton>
           ) : (
             <ActivityIndicator animating={true} color={MD2Colors.yellow500} />
           )}
         </Spacer>
-        <Spacer size="medium">
+        <Spacer size="large" />
+        <Spacer size="large">
           <AuthButton
             mode="contained"
             textColor="gold"
