@@ -32,7 +32,7 @@
     "@shopify/flash-list": "1.4.0",
     "@types/react-native-snap-carousel": "^3.8.5",
     "camelize": "^1.0.1",
-    "expo": "^48.0.6",
+    "expo": "^48.0.7",
     "expo-camera": "~13.2.1",
     "expo-cli": "^6.3.2",
     "expo-location": "~15.1.1",
