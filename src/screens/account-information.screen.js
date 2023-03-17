@@ -26,6 +26,7 @@ export const AccountInformationScreen = ({ navigation }) => {
     name: "",
     last_name: "",
     phone_number: "",
+    currentPassword: "",
     password: "",
     reapeatedPassword: "",
   });
@@ -67,6 +68,9 @@ export const AccountInformationScreen = ({ navigation }) => {
   }
   function handlePhoneNumberChange(text) {
     setUserObj((prevState) => ({ ...prevState, phone_number: text }));
+  }
+  function handleCurrentPasswordChange(text) {
+    setUserObj((prevState) => ({ ...prevState, currentPassword: text }));
   }
   function handlePasswordChange(text) {
     setUserObj((prevState) => ({ ...prevState, password: text }));
@@ -182,6 +186,16 @@ export const AccountInformationScreen = ({ navigation }) => {
         </Spacer>
         <Spacer size="large">
           <AuthInput
+            label="Current password"
+            textContentType="password"
+            backgroundColor="#FFFFFF"
+            secureTextEntry
+            autoCapitalize="none"
+            onChangeText={(p) => handleCurrentPasswordChange(p)}
+          />
+        </Spacer>
+        <Spacer size="large">
+          <AuthInput
             label="Password"
             textContentType="password"
             backgroundColor="#FFFFFF"
@@ -212,7 +226,11 @@ export const AccountInformationScreen = ({ navigation }) => {
               textColor="gold"
               buttonColor="black"
               onPress={() =>
-                changePassword(userObj.password, userObj.reapeatedPassword)
+                changePassword(
+                  userObj.currentPassword,
+                  userObj.password,
+                  userObj.reapeatedPassword
+                )
               }
             >
               Change Password
