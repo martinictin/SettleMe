@@ -13,11 +13,6 @@ const user = auth.currentUser;
 export const loginRequest = (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
 
-const reauthenticate = (currentPassword) => {
-  var cred = EmailAuthProvider.credential(user.email, currentPassword);
-  return reauthenticateWithCredential(cred);
-};
-
 export const setUserInfo = async (email) => {
   await setDoc(doc(db, "user", user.uid), {
     email: email,
@@ -58,10 +53,6 @@ export const changePassword = (
   newPassword,
   repeatedPassword
 ) => {
-  console.log(currentPassword);
-  console.log(newPassword);
-  console.log(repeatedPassword);
-
   if (newPassword) {
     if (newPassword === repeatedPassword) {
       const credential = EmailAuthProvider.credential(
