@@ -34,7 +34,7 @@ export const FavoritesContextProvider = ({ children }) => {
   };
 
   const remove = (product) => {
-    const newFavorites = favorites.filter((x) => x.placeId !== product.placeId);
+    const newFavorites = favorites.filter((x) => x.id !== product.id);
 
     setFavorites(newFavorites);
   };
