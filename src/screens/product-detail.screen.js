@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Platform, Text } from "react-native";
+import { View, Platform, Text, ScrollView } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { SvgXml } from "react-native-svg";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -88,100 +88,102 @@ export const ProductDetailScreen = ({ route }) => {
 
   return (
     <View>
-      <SliderBox
-        images={product.image}
-        dotColor="gold"
-        inactiveDotColor="black"
-        imageLoadingColor="gold"
-      />
-      <Spacer size="large" />
-      <ProductDetailView>
-        <ProductHeader>
-          <Title>{product.name}</Title>
-          <RatingSection>
-            <SvgXml xml={star} width={30} height={30} />
-            <Rating>{product.rate}</Rating>
-          </RatingSection>
-        </ProductHeader>
-        <Spacer size="medium" />
-        <Category>{product.category}</Category>
-        <Spacer size="small" />
-        <WorkingHoursSection>
-          <Category>
-            {product.opening_at}-{product.closed_at}
-          </Category>
-        </WorkingHoursSection>
-        <Spacer size="small" />
-        <Category>{product.address}</Category>
-        <Spacer size="small" />
-        <Description>{product.description}</Description>
+      <ScrollView>
+        <SliderBox
+          images={product.image}
+          dotColor="gold"
+          inactiveDotColor="black"
+          imageLoadingColor="gold"
+        />
         <Spacer size="large" />
-        <Spacer size="large" />
-      </ProductDetailView>
-      <SectionSeparator />
-      <Spacer size="large" />
-      <Spacer size="large" />
-      <ReservationSection>
-        <DateTimeSection>
-          <DateTimeButton
-            onPress={showDatepicker}
-            mode="contained"
-            textColor="black"
-            buttonColor="gold"
-          >
-            Select Date
-          </DateTimeButton>
+        <ProductDetailView>
+          <ProductHeader>
+            <Title>{product.name}</Title>
+            <RatingSection>
+              <SvgXml xml={star} width={30} height={30} />
+              <Rating>{product.rate}</Rating>
+            </RatingSection>
+          </ProductHeader>
           <Spacer size="medium" />
-          <DateTimeButton
-            onPress={showTimepicker}
+          <Category>{product.category}</Category>
+          <Spacer size="small" />
+          <WorkingHoursSection>
+            <Category>
+              {product.opening_at}-{product.closed_at}
+            </Category>
+          </WorkingHoursSection>
+          <Spacer size="small" />
+          <Category>{product.address}</Category>
+          <Spacer size="small" />
+          <Description>{product.description}</Description>
+          <Spacer size="large" />
+          <Spacer size="large" />
+        </ProductDetailView>
+        <SectionSeparator />
+        <Spacer size="large" />
+        <Spacer size="large" />
+        <ReservationSection>
+          <DateTimeSection>
+            <DateTimeButton
+              onPress={showDatepicker}
+              mode="contained"
+              textColor="black"
+              buttonColor="gold"
+            >
+              Select Date
+            </DateTimeButton>
+            <Spacer size="medium" />
+            <DateTimeButton
+              onPress={showTimepicker}
+              mode="contained"
+              textColor="black"
+              buttonColor="gold"
+            >
+              Select Time
+            </DateTimeButton>
+          </DateTimeSection>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={reservationDate}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+          <Spacer size="medium" />
+          <DateTimeText>{reservationDate.toLocaleString()}</DateTimeText>
+          <Spacer size="large" />
+          <Spacer size="large" />
+          <SubmitButton
+            onPress={handleSubmit}
             mode="contained"
             textColor="black"
             buttonColor="gold"
           >
-            Select Time
-          </DateTimeButton>
-        </DateTimeSection>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={reservationDate}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-          />
-        )}
-        <Spacer size="medium" />
-        <DateTimeText>{reservationDate.toLocaleString()}</DateTimeText>
+            Reserve
+          </SubmitButton>
+        </ReservationSection>
         <Spacer size="large" />
         <Spacer size="large" />
-        <SubmitButton
-          onPress={handleSubmit}
-          mode="contained"
-          textColor="black"
-          buttonColor="gold"
-        >
-          Reserve
-        </SubmitButton>
-      </ReservationSection>
-      <Spacer size="large" />
-      <Spacer size="large" />
-      <SectionSeparator />
-      <Spacer size="large" />
-      <Spacer size="large" />
-      {isEmpty && <Text>No Reservations yet</Text>}
-      <ReviewSection>
-        <StarsSection>
-          {ratingArray.map((_, i) => (
-            <SvgXml
-              key={`star-${product.id}-${i}`}
-              xml={star}
-              width={30}
-              height={30}
-            />
-          ))}
-        </StarsSection>
-      </ReviewSection>
+        <SectionSeparator />
+        <Spacer size="large" />
+        <Spacer size="large" />
+        {isEmpty && <Text>No Reservations yet</Text>}
+        <ReviewSection>
+          <StarsSection>
+            {ratingArray.map((_, i) => (
+              <SvgXml
+                key={`star-${product.id}-${i}`}
+                xml={star}
+                width={30}
+                height={30}
+              />
+            ))}
+          </StarsSection>
+        </ReviewSection>
+      </ScrollView>
     </View>
   );
 };
