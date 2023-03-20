@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { View, Platform } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Platform, Text } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { SvgXml } from "react-native-svg";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Flatlist } from "react-native";
 
 import { Spacer } from "../utillities/spacer/spacer.component";
 import star from "../../assets/star";
@@ -22,8 +23,14 @@ import {
   DateTimeText,
   SubmitButton,
 } from "../data/styles/product-detail.styles";
+import { Review } from "../data/components/review.component";
 import { setReservationByUser } from "../services/reservation.service";
 import { Alert } from "react-native";
+import { getReviewsByProduct } from "../services/review.service";
+import {
+  ReviewSection,
+  StarsSection,
+} from "../data/styles/product-detail.styles";
 
 export const ProductDetailScreen = ({ route }) => {
   const { product } = route.params;
@@ -31,6 +38,25 @@ export const ProductDetailScreen = ({ route }) => {
   const [reservationDate, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+  const [isEmpty, setEmpty] = useState(true);
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      console.log(product);
+      const data = await getReviewsByProduct(product);
+      if (data) {
+        setReviews(data);
+        setEmpty(false);
+      } else {
+        Alert.alert("No reviews data");
+      }
+    }
+
+    fetchData();
+  }, [product]);
+
+  const ratingArray = Array.from(new Array(Math.floor(product.rate)));
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || reservationDate;
@@ -143,6 +169,19 @@ export const ProductDetailScreen = ({ route }) => {
       <SectionSeparator />
       <Spacer size="large" />
       <Spacer size="large" />
+      {isEmpty && <Text>No Reservations yet</Text>}
+      <ReviewSection>
+        <StarsSection>
+          {ratingArray.map((_, i) => (
+            <SvgXml
+              key={`star-${product.id}-${i}`}
+              xml={star}
+              width={30}
+              height={30}
+            />
+          ))}
+        </StarsSection>
+      </ReviewSection>
     </View>
   );
 };

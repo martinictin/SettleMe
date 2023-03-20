@@ -1,12 +1,17 @@
 import { collection, query, where, getDoc } from "firebase/firestore";
 import { db } from "../utillities/firebase";
+import { Alert } from "react-native";
 
 export async function getProductByName(productName) {
-  console.log("usa u funkciju");
-  const q = query(collection(db, "product"), where("name", "==", productName));
-  console.log("prije querysnapshota");
-  const querySnapshot = await getDoc(q.get());
-  console.log("prije returna ");
-  console.log(querySnapshot, querySnapshot.data());
-  return { ...querySnapshot.data(), id: querySnapshot.id };
+  try {
+    const q = query(
+      collection(db, "product"),
+      where("name", "==", productName)
+    );
+    const querySnapshot = await getDoc(q);
+
+    return querySnapshot.data();
+  } catch (error) {
+    Alert.alert(error.message);
+  }
 }

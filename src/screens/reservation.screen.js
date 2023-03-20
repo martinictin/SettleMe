@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
-import { FlashList } from "@shopify/flash-list";
+import { Flatlist } from "react-native";
 import { SafeArea } from "../utillities/utills/safe-area.component";
-import { ReservationInfoCard } from "../data/components/reservation-info-card.component";
 import { TitleText, TitleContainer } from "../data/styles/title.styles";
 import { getReservationsByUser } from "../services/reservation.service";
+import { Alert } from "react-native";
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -31,28 +31,25 @@ export const ReservationScreen = ({ navigation }) => {
   const [reservations, setReservations] = useState([]);
   const [isEmpty, setEmpty] = useState([]);
   const [isLoading, setIsLoading] = useState([]);
-  const [error, setError] = useState();
 
   useEffect(() => {
     setIsLoading(true);
     setEmpty(true);
-    const fetchUserReservationData = async () => {
-      try {
-        setReservations(await getReservationsByUser());
+    async function fetchData() {
+      const data = await getReservationsByUser();
+      if (data) {
+        setReservations(data);
         setIsLoading(false);
-        if (reservations.length > 0) {
-          setEmpty(false);
-        }
-      } catch (e) {
-        setIsLoading(false);
-        setError(e);
-        setEmpty(true);
+        setEmpty(false);
+      } else {
+        Alert.alert("No data");
       }
-    };
+    }
 
-    fetchUserReservationData();
-  }, [reservations.length]);
+    fetchData();
+  }, []);
 
+  console.log(reservations);
   return (
     <SafeArea>
       {isLoading && (
@@ -68,14 +65,6 @@ export const ReservationScreen = ({ navigation }) => {
       <TitleContainer>
         <TitleText>Reservations</TitleText>
       </TitleContainer>
-      <FlashList
-        data={reservations}
-        renderItem={({ item }) => {
-          return <ReservationInfoCard reservation={item} />;
-        }}
-        keyExtractor={(item) => item.id}
-        estimatedItemSize={20}
-      />
     </SafeArea>
   );
 };

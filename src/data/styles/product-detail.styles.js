@@ -77,3 +77,16 @@ export const SubmitButton = styled(Button)`
   margin-right: 10%;
   border-radius: 10px;
 `;
+
+export const ReviewSection = styled.View`
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: ${(props) => props.theme.colors.colorList.gold};
+`;
+
+export const StarsSection = styled.View`
+  margin-top: ${(props) => props.theme.space[1]};
+  margin-bottom: ${(props) => props.theme.space[2]};
+  justify-content: center;
+  flex-direction: row;
+`;
