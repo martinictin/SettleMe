@@ -8,13 +8,11 @@ import {
 } from "firebase/auth";
 import { Alert } from "react-native";
 
-const user = auth.currentUser;
-
 export const loginRequest = (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
 
 export const setUserInfo = async (email) => {
-  await setDoc(doc(db, "user", user.uid), {
+  await setDoc(doc(db, "user", auth.currentUser.uid), {
     email: email,
     phone_number: null,
     name: null,
@@ -37,7 +35,7 @@ export const getUserInfo = async () => {
 
 export const updateUserInfo = async (name, lastname, phonenumber) => {
   try {
-    await updateDoc(doc(db, "user", user.uid), {
+    await updateDoc(doc(db, "user", auth.currentUser.uid), {
       name: name,
       last_name: lastname,
       phone_number: phonenumber,
@@ -56,12 +54,12 @@ export const changePassword = (
   if (newPassword) {
     if (newPassword === repeatedPassword) {
       const credential = EmailAuthProvider.credential(
-        user.email,
+        auth.currentUser.email,
         currentPassword
       );
-      reauthenticateWithCredential(user, credential)
+      reauthenticateWithCredential(auth.currentUser, credential)
         .then(() => {
-          updatePassword(user, newPassword)
+          updatePassword(auth.currentUser, newPassword)
             .then(() => {
               Alert.alert("Password changed!");
             })
@@ -70,7 +68,7 @@ export const changePassword = (
             });
         })
         .catch((error) => {
-          Alert.alert("Wrong current password!");
+          Alert.alert("Wrong current password!", error);
         });
     } else {
       Alert.alert("Password doesn't match");

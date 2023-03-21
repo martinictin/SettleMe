@@ -15,3 +15,14 @@ export async function getProductByName(productName) {
     Alert.alert(error.message);
   }
 }
+
+export async function getProductsInCity(city) {
+  try {
+    const q = query(collection(db, "product"), where("city", "==", city));
+    const querySnapshot = await getDoc(q);
+
+    return querySnapshot.data();
+  } catch (error) {
+    Alert.alert(error.message);
+  }
+}

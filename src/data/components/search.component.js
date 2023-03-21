@@ -22,9 +22,11 @@ const searchBarStyle = {
 export const Search = () => {
   const { keyword, search } = useContext(ProductsContext);
   const [searchKeyword, setSearchKeyword] = useState(keyword);
+
   useEffect(() => {
     setSearchKeyword(keyword);
   }, [keyword]);
+
   return (
     <SearchContainer>
       <Searchbar

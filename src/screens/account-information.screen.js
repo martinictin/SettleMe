@@ -1,6 +1,11 @@
 import React, { useContext, useCallback, useState, useEffect } from "react";
 import styled from "styled-components/native";
-import { TouchableOpacity, ActivityIndicator, MD2Colors } from "react-native";
+import {
+  TouchableOpacity,
+  ActivityIndicator,
+  MD2Colors,
+  ScrollView,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { Avatar } from "react-native-paper";
@@ -81,176 +86,178 @@ export const AccountInformationScreen = ({ navigation }) => {
 
   return (
     <SafeArea>
-      <Spacer size="large" />
-      <AvatarContainer>
-        <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
-          {!photo && (
-            <Avatar.Icon
-              size={100}
-              icon="account"
-              style={{ backgroundColor: "#FFFFFF" }}
-              color="#FFD700"
-            />
-          )}
-          {photo && (
-            <Avatar.Image
-              size={100}
-              source={{ uri: photo }}
-              backgroundColor="black"
-            />
-          )}
-        </TouchableOpacity>
-        <Spacer position="top" size="large">
-          <Text variant="label">{user.email}</Text>
-        </Spacer>
-      </AvatarContainer>
-
-      <AccountContainer>
-        {userObj.name ? (
-          <AuthInput
-            label="Name"
-            value={userObj.name}
-            backgroundColor="#FFFFFF"
-            autoCapitalize="none"
-            onChangeText={(u) => handleNameChange(u)}
-          />
-        ) : (
-          <AuthInput
-            label="Name"
-            backgroundColor="#FFFFFF"
-            textColor="#232023"
-            autoCapitalize="none"
-            onChangeText={(u) => handleNameChange(u)}
-          />
-        )}
-        <Spacer size="large">
-          {userObj.last_name ? (
-            <AuthInput
-              label="Last Name"
-              value={userObj.last_name}
-              backgroundColor="#FFFFFF"
-              autoCapitalize="none"
-              onChangeText={(u) => handleLastNameChange(u)}
-            />
-          ) : (
-            <AuthInput
-              label="Last Name"
-              backgroundColor="#FFFFFF"
-              autoCapitalize="none"
-              onChangeText={(u) => handleLastNameChange(u)}
-            />
-          )}
-        </Spacer>
-        <Spacer size="large">
-          {userObj.phone_number ? (
-            <AuthInput
-              label="Phone number"
-              value={userObj.phone_number}
-              backgroundColor="#FFFFFF"
-              autoCapitalize="none"
-              onChangeText={(u) => handlePhoneNumberChange(u)}
-            />
-          ) : (
-            <AuthInput
-              label="Phone Number"
-              backgroundColor="#FFFFFF"
-              autoCapitalize="none"
-              onChangeText={(u) => handlePhoneNumberChange(u)}
-            />
-          )}
-        </Spacer>
-        {error && (
-          <ErrorContainer size="large">
-            <Text variant="error">{error}</Text>
-          </ErrorContainer>
-        )}
-        <Spacer size="large">
-          {!isLoading ? (
-            <AuthButton
-              mode="contained"
-              textColor="gold"
-              buttonColor="black"
-              onPress={() =>
-                updateUserInfo(
-                  userObj.name,
-                  userObj.last_name,
-                  userObj.phone_number
-                )
-              }
-            >
-              Change Account Info
-            </AuthButton>
-          ) : (
-            <ActivityIndicator animating={true} color={MD2Colors.yellow500} />
-          )}
-        </Spacer>
-        <Spacer size="large">
-          <AuthInput
-            label="Current password"
-            textContentType="password"
-            backgroundColor="#FFFFFF"
-            secureTextEntry
-            autoCapitalize="none"
-            onChangeText={(p) => handleCurrentPasswordChange(p)}
-          />
-        </Spacer>
-        <Spacer size="large">
-          <AuthInput
-            label="Password"
-            textContentType="password"
-            backgroundColor="#FFFFFF"
-            secureTextEntry
-            autoCapitalize="none"
-            onChangeText={(p) => handlePasswordChange(p)}
-          />
-        </Spacer>
-        <Spacer size="large">
-          <AuthInput
-            label="Repeated Password"
-            backgroundColor="#FFFFFF"
-            textContentType="password"
-            secureTextEntry
-            autoCapitalize="none"
-            onChangeText={(p) => handleReapetedPasswordChange(p)}
-          />
-        </Spacer>
-        {error && (
-          <ErrorContainer size="large">
-            <Text variant="error">{error}</Text>
-          </ErrorContainer>
-        )}
-        <Spacer size="large">
-          {!isLoading ? (
-            <AuthButton
-              mode="contained"
-              textColor="gold"
-              buttonColor="black"
-              onPress={() =>
-                changePassword(
-                  userObj.currentPassword,
-                  userObj.password,
-                  userObj.reapeatedPassword
-                )
-              }
-            >
-              Change Password
-            </AuthButton>
-          ) : (
-            <ActivityIndicator animating={true} color={MD2Colors.yellow500} />
-          )}
-        </Spacer>
+      <ScrollView>
         <Spacer size="large" />
-        <Spacer size="large">
-          <AuthButton
-            mode="contained"
-            textColor="gold"
-            buttonColor="black"
-            onPress={() => navigation.goBack()}
-          >
-            Back
-          </AuthButton>
-        </Spacer>
-      </AccountContainer>
+        <AvatarContainer>
+          <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
+            {!photo && (
+              <Avatar.Icon
+                size={100}
+                icon="account"
+                style={{ backgroundColor: "#FFFFFF" }}
+                color="#FFD700"
+              />
+            )}
+            {photo && (
+              <Avatar.Image
+                size={100}
+                source={{ uri: photo }}
+                backgroundColor="black"
+              />
+            )}
+          </TouchableOpacity>
+          <Spacer position="top" size="large">
+            <Text variant="label">{user.email}</Text>
+          </Spacer>
+        </AvatarContainer>
+
+        <AccountContainer>
+          {userObj.name ? (
+            <AuthInput
+              label="Name"
+              value={userObj.name}
+              backgroundColor="#FFFFFF"
+              autoCapitalize="none"
+              onChangeText={(u) => handleNameChange(u)}
+            />
+          ) : (
+            <AuthInput
+              label="Name"
+              backgroundColor="#FFFFFF"
+              textColor="#232023"
+              autoCapitalize="none"
+              onChangeText={(u) => handleNameChange(u)}
+            />
+          )}
+          <Spacer size="large">
+            {userObj.last_name ? (
+              <AuthInput
+                label="Last Name"
+                value={userObj.last_name}
+                backgroundColor="#FFFFFF"
+                autoCapitalize="none"
+                onChangeText={(u) => handleLastNameChange(u)}
+              />
+            ) : (
+              <AuthInput
+                label="Last Name"
+                backgroundColor="#FFFFFF"
+                autoCapitalize="none"
+                onChangeText={(u) => handleLastNameChange(u)}
+              />
+            )}
+          </Spacer>
+          <Spacer size="large">
+            {userObj.phone_number ? (
+              <AuthInput
+                label="Phone number"
+                value={userObj.phone_number}
+                backgroundColor="#FFFFFF"
+                autoCapitalize="none"
+                onChangeText={(u) => handlePhoneNumberChange(u)}
+              />
+            ) : (
+              <AuthInput
+                label="Phone Number"
+                backgroundColor="#FFFFFF"
+                autoCapitalize="none"
+                onChangeText={(u) => handlePhoneNumberChange(u)}
+              />
+            )}
+          </Spacer>
+          {error && (
+            <ErrorContainer size="large">
+              <Text variant="error">{error}</Text>
+            </ErrorContainer>
+          )}
+          <Spacer size="large">
+            {!isLoading ? (
+              <AuthButton
+                mode="contained"
+                textColor="gold"
+                buttonColor="black"
+                onPress={() =>
+                  updateUserInfo(
+                    userObj.name,
+                    userObj.last_name,
+                    userObj.phone_number
+                  )
+                }
+              >
+                Change Account Info
+              </AuthButton>
+            ) : (
+              <ActivityIndicator animating={true} color={MD2Colors.yellow500} />
+            )}
+          </Spacer>
+          <Spacer size="large">
+            <AuthInput
+              label="Current password"
+              textContentType="password"
+              backgroundColor="#FFFFFF"
+              secureTextEntry
+              autoCapitalize="none"
+              onChangeText={(p) => handleCurrentPasswordChange(p)}
+            />
+          </Spacer>
+          <Spacer size="large">
+            <AuthInput
+              label="Password"
+              textContentType="password"
+              backgroundColor="#FFFFFF"
+              secureTextEntry
+              autoCapitalize="none"
+              onChangeText={(p) => handlePasswordChange(p)}
+            />
+          </Spacer>
+          <Spacer size="large">
+            <AuthInput
+              label="Repeated Password"
+              backgroundColor="#FFFFFF"
+              textContentType="password"
+              secureTextEntry
+              autoCapitalize="none"
+              onChangeText={(p) => handleReapetedPasswordChange(p)}
+            />
+          </Spacer>
+          {error && (
+            <ErrorContainer size="large">
+              <Text variant="error">{error}</Text>
+            </ErrorContainer>
+          )}
+          <Spacer size="large">
+            {!isLoading ? (
+              <AuthButton
+                mode="contained"
+                textColor="gold"
+                buttonColor="black"
+                onPress={() =>
+                  changePassword(
+                    userObj.currentPassword,
+                    userObj.password,
+                    userObj.reapeatedPassword
+                  )
+                }
+              >
+                Change Password
+              </AuthButton>
+            ) : (
+              <ActivityIndicator animating={true} color={MD2Colors.yellow500} />
+            )}
+          </Spacer>
+          <Spacer size="large" />
+          <Spacer size="large">
+            <AuthButton
+              mode="contained"
+              textColor="gold"
+              buttonColor="black"
+              onPress={() => navigation.goBack()}
+            >
+              Back
+            </AuthButton>
+          </Spacer>
+        </AccountContainer>
+      </ScrollView>
     </SafeArea>
   );
 };
