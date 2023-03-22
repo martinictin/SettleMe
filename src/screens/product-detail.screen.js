@@ -43,17 +43,14 @@ export const ProductDetailScreen = ({ route }) => {
 
   useEffect(() => {
     async function fetchData() {
-      console.log(product);
       const data = await getReviewsByProduct(product);
       if (data) {
         setReviews(data);
         setEmpty(false);
-      } else {
-        Alert.alert("No reviews data");
       }
-    }
 
-    fetchData();
+      fetchData();
+    }
   }, [product]);
 
   const ratingArray = Array.from(new Array(Math.floor(product.rate)));
@@ -109,7 +106,7 @@ export const ProductDetailScreen = ({ route }) => {
           <Spacer size="small" />
           <WorkingHoursSection>
             <Category>
-              {product.opening_at}-{product.closed_at}
+              {product.opening_at}-{product.closing_at}
             </Category>
           </WorkingHoursSection>
           <Spacer size="small" />

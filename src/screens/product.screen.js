@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
-import { ActivityIndicator, MD2Colors } from "react-native-paper";
+import { ActivityIndicator, MD2Colors, Text } from "react-native-paper";
 
 import { Search } from "../data/components/search.component";
 import { SafeArea } from "../utillities/utills/safe-area.component";
@@ -9,6 +9,7 @@ import { Spacer } from "../utillities/spacer/spacer.component";
 import { ProductsContext } from "../contexts/products.context";
 import { ProductInfoCard } from "../data/components/product-info-card.component";
 import { FadeInView } from "../utillities/animations/fade.animation";
+import { LocationContext } from "../contexts/location.context";
 
 const ProductList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -26,36 +27,96 @@ const LoadingContainer = styled.View`
 `;
 
 export const ProductsScreen = ({ navigation }) => {
-  const { isLoading, products } = useContext(ProductsContext);
-  return (
-    <SafeArea>
-      {isLoading && (
-        <LoadingContainer>
-          <Loading size={50} animating={true} color={MD2Colors.yellow500} />
-        </LoadingContainer>
-      )}
-      <Search />
-      <ProductList
-        data={products}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("ProductDetail", {
-                  product: item,
-                })
-              }
-            >
-              <Spacer position="bottom" size="large">
-                <FadeInView>
-                  <ProductInfoCard product={item} />
-                </FadeInView>
-              </Spacer>
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeArea>
-  );
+  const { isLoading, products, error } = useContext(ProductsContext);
+  const { error: locationError, locationProducts } =
+    useContext(LocationContext);
+  const hasError = !!error || !!locationError;
+
+  if (!locationProducts) {
+    return (
+      <SafeArea>
+        {isLoading && (
+          <LoadingContainer>
+            <Loading size={50} animating={true} color={MD2Colors.yellow500} />
+          </LoadingContainer>
+        )}
+        <Search />
+        {hasError && (
+          <Spacer position="left" size="large">
+            <Text variant="error">
+              Something went wrong retrieving the data
+            </Text>
+          </Spacer>
+        )}
+        {!hasError && (
+          <ProductList
+            data={products}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() =>
+                    navigation.navigate("ProductDetail", {
+                      product: item,
+                      key: item.id,
+                    })
+                  }
+                >
+                  <Spacer position="bottom" size="large">
+                    <FadeInView>
+                      <ProductInfoCard product={item} />
+                    </FadeInView>
+                  </Spacer>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        )}
+      </SafeArea>
+    );
+  } else {
+    return (
+      <SafeArea>
+        {isLoading && (
+          <LoadingContainer>
+            <Loading size={50} animating={true} color={MD2Colors.yellow500} />
+          </LoadingContainer>
+        )}
+        <Search />
+        {hasError && (
+          <Spacer position="left" size="large">
+            <Text variant="error">
+              Something went wrong retrieving the data
+            </Text>
+          </Spacer>
+        )}
+        {!hasError && (
+          <ProductList
+            data={locationProducts}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => {
+              return (
+                <TouchableOpacity
+                  key={index.toString()}
+                  onPress={() =>
+                    navigation.navigate("ProductDetail", {
+                      product: item,
+                      key: item.id,
+                    })
+                  }
+                >
+                  <Spacer position="bottom" size="large">
+                    <FadeInView>
+                      <ProductInfoCard product={item} />
+                    </FadeInView>
+                  </Spacer>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        )}
+      </SafeArea>
+    );
+  }
 };
