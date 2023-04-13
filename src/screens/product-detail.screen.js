@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { View, Platform, Text, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Platform, ScrollView } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { SvgXml } from "react-native-svg";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Flatlist } from "react-native";
 
 import { Spacer } from "../utillities/spacer/spacer.component";
 import star from "../../assets/star";
@@ -23,10 +22,9 @@ import {
   DateTimeText,
   SubmitButton,
 } from "../data/styles/product-detail.styles";
-import { Review } from "../data/components/review.component";
+import StarRating from "../data/components/star-rating.component";
 import { setReservationByUser } from "../services/reservation.service";
 import { Alert } from "react-native";
-import { getReviewsByProduct } from "../services/review.service";
 import {
   ReviewSection,
   StarsSection,
@@ -38,20 +36,7 @@ export const ProductDetailScreen = ({ route }) => {
   const [reservationDate, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
-  const [isEmpty, setEmpty] = useState(true);
-  const [reviews, setReviews] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = await getReviewsByProduct(product);
-      if (data) {
-        setReviews(data);
-        setEmpty(false);
-      }
-
-      fetchData();
-    }
-  }, [product]);
+  const [rating, setRating] = useState(false);
 
   const ratingArray = Array.from(new Array(Math.floor(product.rate)));
 
@@ -82,6 +67,10 @@ export const ProductDetailScreen = ({ route }) => {
       Alert.alert(e);
     }
   };
+
+  function handleRatingChange() {
+    setRating(rating);
+  }
 
   return (
     <View>
@@ -167,18 +156,27 @@ export const ProductDetailScreen = ({ route }) => {
         <SectionSeparator />
         <Spacer size="large" />
         <Spacer size="large" />
-        {isEmpty && <Text>No Reservations yet</Text>}
         <ReviewSection>
-          <StarsSection>
-            {ratingArray.map((_, i) => (
-              <SvgXml
-                key={`star-${product.id}-${i}`}
-                xml={star}
-                width={30}
-                height={30}
-              />
-            ))}
-          </StarsSection>
+          {rating ? (
+            <StarsSection>
+              {ratingArray.map((_, i) => (
+                <SvgXml
+                  key={`star-${product.id}-${i}`}
+                  xml={star}
+                  width={30}
+                  height={30}
+                />
+              ))}
+            </StarsSection>
+          ) : (
+            <StarRating
+              product_name={product.name}
+              onRatingChange={handleRatingChange}
+            />
+          )}
+          <Spacer size="large" />
+          <Spacer size="large" />
+          <SectionSeparator />
         </ReviewSection>
       </ScrollView>
     </View>

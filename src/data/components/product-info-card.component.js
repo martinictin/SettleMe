@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SvgXml } from "react-native-svg";
-
+import { setProductAverageRating } from "../../services/product.service";
 import { Spacer } from "../../utillities/spacer/spacer.component";
 import star from "../../../assets/star";
 import { Favorite } from "../components/favorite.component";
@@ -24,12 +24,16 @@ export const ProductInfoCard = ({ product = {} }) => {
     ],
     description = "Some description",
     address = "100 some random street",
-    rate = 4.5,
+    rate = 5,
     closing_at,
     opening_at,
     minimal_spending,
     city,
   } = product;
+
+  useEffect(() => {
+    setProductAverageRating(name);
+  }, [name]);
 
   return (
     <ProductCard elevation={0}>
