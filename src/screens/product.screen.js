@@ -32,91 +32,42 @@ export const ProductsScreen = ({ navigation }) => {
     useContext(LocationContext);
   const hasError = !!error || !!locationError;
 
-  if (!locationProducts) {
-    return (
-      <SafeArea>
-        {isLoading && (
-          <LoadingContainer>
-            <Loading size={50} animating={true} color={MD2Colors.yellow500} />
-          </LoadingContainer>
-        )}
-        <Search />
-        {hasError && (
-          <Spacer position="left" size="large">
-            <Text variant="error">
-              Something went wrong retrieving the data
-            </Text>
-          </Spacer>
-        )}
-        {!hasError && (
-          <ProductList
-            data={products}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity
-                  key={item.id}
-                  onPress={() =>
-                    navigation.navigate("ProductDetail", {
-                      product: item,
-                      key: item.id,
-                    })
-                  }
-                >
-                  <Spacer position="bottom" size="large">
-                    <FadeInView>
-                      <ProductInfoCard product={item} />
-                    </FadeInView>
-                  </Spacer>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        )}
-      </SafeArea>
-    );
-  } else {
-    return (
-      <SafeArea>
-        {isLoading && (
-          <LoadingContainer>
-            <Loading size={50} animating={true} color={MD2Colors.yellow500} />
-          </LoadingContainer>
-        )}
-        <Search />
-        {hasError && (
-          <Spacer position="left" size="large">
-            <Text variant="error">
-              Something went wrong retrieving the data
-            </Text>
-          </Spacer>
-        )}
-        {!hasError && (
-          <ProductList
-            data={locationProducts}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity
-                  key={index.toString()}
-                  onPress={() =>
-                    navigation.navigate("ProductDetail", {
-                      product: item,
-                      key: item.id,
-                    })
-                  }
-                >
-                  <Spacer position="bottom" size="large">
-                    <FadeInView>
-                      <ProductInfoCard product={item} />
-                    </FadeInView>
-                  </Spacer>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        )}
-      </SafeArea>
-    );
-  }
+  return (
+    <SafeArea>
+      {isLoading && (
+        <LoadingContainer>
+          <Loading size={50} animating={true} color={MD2Colors.yellow500} />
+        </LoadingContainer>
+      )}
+      <Search />
+      {hasError && (
+        <Spacer position="left" size="large">
+          <Text variant="error">Something went wrong retrieving the data</Text>
+        </Spacer>
+      )}
+      {!hasError && (
+        <ProductList
+          data={!locationProducts ? products : locationProducts}
+          keyExtractor={(item, index) => (item.id ? item.id : index.toString())}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              key={item.id || index.toString()}
+              onPress={() =>
+                navigation.navigate("ProductDetail", {
+                  product: item,
+                  key: item.id,
+                })
+              }
+            >
+              <Spacer position="bottom" size="large">
+                <FadeInView>
+                  <ProductInfoCard product={item} />
+                </FadeInView>
+              </Spacer>
+            </TouchableOpacity>
+          )}
+        />
+      )}
+    </SafeArea>
+  );
 };

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, createContext } from "react";
-import { getProductsInCity } from "../services/product.service";
+import { getAllProducts, getProductsInCity } from "../services/product.service";
 
 export const LocationContext = createContext();
 
 export const LocationContextProvider = ({ children }) => {
-  const [keyword, setKeyword] = useState("Split");
+  const [keyword, setKeyword] = useState(null);
   const [locationProducts, setLocationProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,19 +15,29 @@ export const LocationContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!keyword.length) {
-      return;
+    if (keyword === null || keyword.length <= 2) {
+      getAllProducts()
+        .then((result) => {
+          setError(null);
+          setIsLoading(false);
+          setLocationProducts(result);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          setError(err);
+        });
+    } else {
+      getProductsInCity(keyword)
+        .then((result) => {
+          setError(null);
+          setIsLoading(false);
+          setLocationProducts(result);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          setError(err);
+        });
     }
-    getProductsInCity(keyword)
-      .then((result) => {
-        setError(null);
-        setIsLoading(false);
-        setLocationProducts(result);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        setError(err);
-      });
   }, [keyword]);
 
   return (

@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
+import { getAllProducts } from "../services/product.service";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../utillities/firebase";
 import { Alert } from "react-native";
@@ -12,20 +13,16 @@ export const ProductsContextProvider = ({ children }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    try {
-      onSnapshot(query(collection(db, "product")), (querySnapshot) => {
-        let productList = [];
-        querySnapshot.forEach((doc) => {
-          productList.push({ ...doc.data(), id: doc.id });
-        });
-        setProducts(productList);
+    getAllProducts()
+      .then((result) => {
+        setError(null);
         setIsLoading(false);
+        setProducts(result);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err);
       });
-    } catch (e) {
-      setError(e);
-      Alert.alert(e);
-      setIsLoading(false);
-    }
   }, []);
 
   return (

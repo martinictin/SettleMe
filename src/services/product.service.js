@@ -24,6 +24,20 @@ export async function getProductByName(productName) {
   }
 }
 
+export async function getAllProducts() {
+  let products = [];
+  try {
+    const q = await query(collection(db, "product"));
+    const docsSnap = await getDocs(q);
+    docsSnap.forEach((doc) => {
+      products.push(doc.data());
+    });
+  } catch (error) {
+    Alert.alert(error.message);
+  }
+  return products;
+}
+
 export const getProductsInCity = async (city) => {
   let productsList = [];
   try {
