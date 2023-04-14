@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { FlatList, View } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
-import { Flatlist } from "react-native";
 import { SafeArea } from "../utillities/utills/safe-area.component";
 import { TitleText, TitleContainer } from "../data/styles/title.styles";
-import { getReservationsByUser } from "../services/reservation.service";
-import { Alert } from "react-native";
+import { ReservationContext } from "../contexts/reservations.context";
+import { ReservationInfoCard } from "../data/components/reservation-info-card.component";
+import { FadeInView } from "../utillities/animations/fade.animation";
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -18,53 +19,79 @@ const LoadingContainer = styled.View`
 
 const Empty = styled.Text`
   font-weight: bold;
-  color: gold;
+  color: black;
   font-size: 24px;
 `;
 const EmptyContainer = styled.View`
   position: absolute;
-  top: 50%;
-  left: 25%;
+  top: 40%;
+  left: 23%;
+`;
+const ErrorContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const ReservationScreen = ({ navigation }) => {
-  const [reservations, setReservations] = useState([]);
-  const [isEmpty, setEmpty] = useState([]);
-  const [isLoading, setIsLoading] = useState([]);
+const ErrorText = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: red;
+  margin-bottom: 10px;
+`;
+
+export const ReservationScreen = () => {
+  const { isLoading, reservations, error } = useContext(ReservationContext);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    setEmpty(true);
-    async function fetchData() {
-      const data = await getReservationsByUser();
-      if (data) {
-        setReservations(data);
-        setIsLoading(false);
-        setEmpty(false);
-      } else {
-        Alert.alert("No data");
-      }
-    }
+    setIsEmpty(reservations.length < 1);
+  }, [reservations]);
 
-    fetchData();
-  }, []);
-
-  console.log(reservations);
   return (
-    <SafeArea>
-      {isLoading && (
-        <LoadingContainer>
-          <Loading size={50} animating={true} color={MD2Colors.yellow500} />
-        </LoadingContainer>
+    <>
+      {error ? (
+        <SafeArea>
+          <ErrorContainer>
+            <ErrorText>
+              An error occurred while fetching reservations.
+            </ErrorText>
+          </ErrorContainer>
+        </SafeArea>
+      ) : (
+        <SafeArea>
+          {isLoading && (
+            <LoadingContainer>
+              <Loading size={50} animating={true} color={MD2Colors.yellow500} />
+            </LoadingContainer>
+          )}
+          {isEmpty ? (
+            <EmptyContainer>
+              <Empty>No Reservations yet</Empty>
+            </EmptyContainer>
+          ) : (
+            <>
+              <TitleContainer>
+                <TitleText>Reservations</TitleText>
+              </TitleContainer>
+              <FlatList
+                data={reservations}
+                keyExtractor={(item) => item.name}
+                renderItem={({ item, index }) => (
+                  <FadeInView>
+                    <View style={{ flex: 1 }}>
+                      <ReservationInfoCard
+                        reservation={item}
+                        key={`${item.name}_${index}`}
+                      />
+                    </View>
+                  </FadeInView>
+                )}
+              />
+            </>
+          )}
+        </SafeArea>
       )}
-      {isEmpty && (
-        <EmptyContainer>
-          <Empty>No Reservations yet</Empty>
-        </EmptyContainer>
-      )}
-      <TitleContainer>
-        <TitleText>Reservations</TitleText>
-      </TitleContainer>
-    </SafeArea>
+    </>
   );
 };

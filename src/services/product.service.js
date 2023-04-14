@@ -10,19 +10,27 @@ import {
 import { db } from "../utillities/firebase";
 import { Alert } from "react-native";
 
-export async function getProductByName(productName) {
+export const getProductByName = async (productName) => {
+  let productsList = [];
   try {
-    const q = query(
+    const q = await query(
       collection(db, "product"),
       where("name", "==", productName)
     );
-    const querySnapshot = await getDoc(q);
-
-    return querySnapshot.data();
+    const docsSnap = await getDocs(q);
+    docsSnap.forEach((doc) => {
+      productsList.push(doc.data());
+    });
   } catch (error) {
+    console.log(error.toString());
     Alert.alert(error.message);
   }
-}
+  if (productsList.length > 0) {
+    return productsList[0];
+  } else {
+    Alert.alert("No products with that name");
+  }
+};
 
 export async function getAllProducts() {
   let products = [];
@@ -78,7 +86,7 @@ export const setProductAverageRating = async (product_name) => {
   const sum = ratingList.reduce((acc, rating) => acc + rating, 0);
   let averageRating = sum / ratingList.length;
   averageRating = isNaN(averageRating) ? 0 : parseFloat(averageRating);
-
+  averageRating = Math.floor(averageRating * 10) / 10;
   try {
     const q = query(
       collection(db, "product"),

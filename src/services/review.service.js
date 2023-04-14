@@ -10,8 +10,6 @@ import {
 import { db, auth } from "../utillities/firebase";
 import { Alert } from "react-native";
 
-const user = auth.currentUser;
-
 export const getReviewsByProduct = async (product) => {
   let reviewsList = [];
   try {
@@ -33,21 +31,20 @@ export const setStars = async (number, product_name) => {
   const q = query(
     collection(db, "review"),
     where("product_name", "==", product_name),
-    where("rated_by", "==", user.email)
+    where("rated_by", "==", auth.currentUser.email)
   );
   try {
     const querySnapshot = await getDocs(q);
-    console.log(user.email);
     if (querySnapshot.size > 0) {
       const docSnap = querySnapshot.docs[0];
       await setDoc(doc(db, "review", docSnap.id), {
-        rated_by: user.email,
+        rated_by: auth.currentUser.email,
         rating: number,
         product_name: product_name,
       });
     } else {
       await addDoc(collection(db, "review"), {
-        rated_by: user.email,
+        rated_by: auth.currentUser.email,
         rating: number,
         product_name: product_name,
       });

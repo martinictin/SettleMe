@@ -13,7 +13,6 @@ export const ConfirmationSection = styled.Text`
 `;
 
 export const Info = styled.View`
-  padding: ${(props) => props.theme.space[1]};
   display: flex;
   flex-direction: row;
 `;
@@ -25,9 +24,10 @@ export const Title = styled.Text`
 `;
 
 export const ReservationImage = styled(Image)`
-  width: 30%;
+  width: 35%;
   height: 100%;
   margin-right: 2%;
+  margin-left: 1%;
 `;
 
 export const ReservationInfo = styled.View`

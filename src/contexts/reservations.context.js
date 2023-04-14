@@ -1,7 +1,5 @@
-import React, { useState, useContext, createContext, useEffect } from "react";
-import { collection, query, onSnapshot } from "firebase/firestore";
-import { db } from "../utillities/firebase";
-import { Alert } from "react-native";
+import React, { useState, createContext, useEffect } from "react";
+import { getReservationsByUser } from "../services/reservation.service";
 
 export const ReservationContext = createContext();
 
@@ -12,22 +10,19 @@ export const ReservationContextProvider = ({ children }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    try {
-      onSnapshot(query(collection(db, "reservation")), (querySnapshot) => {
-        let reservationList = [];
-        querySnapshot.forEach((doc) => {
-          reservationList.push({ ...doc.data(), id: doc.id });
-        });
-        setReservations(reservationList);
+    getReservationsByUser()
+      .then((result) => {
+        setError(null);
         setIsLoading(false);
+        setReservations(result);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err);
       });
-    } catch (e) {
-      setError(e);
-      Alert.alert(e);
-      setIsLoading(false);
-    }
   }, []);
 
+  console.log(reservations);
   return (
     <ReservationContext.Provider
       value={{
