@@ -1,7 +1,7 @@
 
-SettleMe
+**SettleMe**
 
-SettleMe is a mobile app built using React Native that helps users split bills and expenses with friends and family. With SettleMe, you can easily track expenses, split bills, and settle up with friends in a hassle-free way.
+SettleMe is a mobile app built using React Native that helps users reserve a spot at the various restaurants and nightclubs which have a partnership agreement. With SettleMe, you can easily reservate,review and settle up with friends in a most easiest way,on the job or from the sofa.
 Installation
 
 To run SettleMe on your local machine, you'll need to have Node.js and Yarn installed. You'll also need to have Expo CLI installed globally. If you don't have Expo CLI installed, you can install it using the following command:
