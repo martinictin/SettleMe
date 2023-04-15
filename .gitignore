@@ -1,5 +1,4 @@
-node_modules/
-.expo/
+
 dist/
 npm-debug.*
 *.jks
@@ -12,3 +11,32 @@ web-build/
 
 # macOS
 .DS_Store
+
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn.lock
+
+# Expo-specific files
+.expo/
+__generated__/
+app.json
+app.config.js
+expo.exported.json
+.expo-shared/
+.env
+
+# iOS-specific files
+Pods/
+*.xcworkspace/
+*.xcuserdatad/
+build/
+ios/Podfile.lock
+
+# Android-specific files
+android/app/build/
+android/gradle.properties
+android/gradle-wrapper.jar
+android/local.properties
+android/gradle/
+android/.gradle/
