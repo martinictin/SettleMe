@@ -76,7 +76,7 @@ export const ReservationScreen = () => {
               </TitleContainer>
               <FlatList
                 data={reservations}
-                keyExtractor={(item) => item.name}
+                keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => (
                   <FadeInView>
                     <View style={{ flex: 1 }}>

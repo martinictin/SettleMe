@@ -22,7 +22,6 @@ export const ReservationContextProvider = ({ children }) => {
       });
   }, []);
 
-  console.log(reservations);
   return (
     <ReservationContext.Provider
       value={{

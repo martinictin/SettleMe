@@ -32,11 +32,19 @@ export const getReservationsByUser = async () => {
       where("reserved_by", "==", auth.currentUser.email)
     );
     const docsSnap = await getDocs(q);
-    docsSnap.forEach((doc) => {
-      reservationsList.push(...doc.data());
-    });
+    if (docsSnap) {
+      try {
+        docsSnap.forEach((doc) => {
+          reservationsList = [doc.data()].concat(reservationsList);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("No docsnap!");
+    }
+    return reservationsList;
   } catch (error) {
-    Alert.alert(error.message);
+    console.log(error);
   }
-  return reservationsList;
 };
