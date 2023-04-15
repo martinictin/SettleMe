@@ -1,5 +1,5 @@
 
-**SettleMe**
+<h3>**SettleMe**<h3/>
 
 SettleMe is a mobile app built using React Native that helps users reserve a spot at the various restaurants and nightclubs which have a partnership agreement. With SettleMe, you can easily reservate,review and settle up with friends in a most easiest way,on the job or from the sofa.
 Installation
