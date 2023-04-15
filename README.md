@@ -19,9 +19,6 @@ Once you have Node.js, Yarn, and Expo CLI installed, follow these steps:
 Once the development server is running, you can use the Expo client app on your mobile device to view the app. Alternatively, you can use an emulator or simulator to run the app on your computer.
 
 <div style="display: flex; flex-direction: row;">
-  <img src="https://user-images.githubusercontent.com/34796503/232227835-2e885f4e-a7bb-47fb-b55d-187e591f56bf.jpeg" style="margin-right: 1rem;">
-  <img src="https://user-images.githubusercontent.com/34796503/232227838-110bdd3e-b624-4ff2-97c1-853ae6d707ce.jpeg" style="margin-right: 1rem;">
-  <img src="https://user-images.githubusercontent.com/34796503/232227839-7dacc35b-3f64-4dcd-9e57-0a79856c92cd.jpeg" style="margin-right: 1rem;">
   <img src="https://user-images.githubusercontent.com/34796503/232227841-e7f62ff4-49a7-4635-b06d-6d6b742223b1.jpeg" style="margin-right: 1rem;">
   <img src="https://user-images.githubusercontent.com/34796503/232227842-c324773b-c710-47f4-9799-4739715adf1e.jpeg" style="margin-right: 1rem;">
   <img src="https://user-images.githubusercontent.com/34796503/232227844-5b8e829e-71a5-4971-9d3d-9d5e01abfcac.jpeg" style="margin-right: 1rem;">
@@ -31,6 +28,10 @@ Once the development server is running, you can use the Expo client app on your 
   <img src="https://user-images.githubusercontent.com/34796503/232227854-a1efea69-7ba6-45c3-b3cb-f2e6105b51ed.jpeg" style="margin-right: 1rem;">
   <img src="https://user-images.githubusercontent.com/34796503/232227856-3b134a78-4728-4b4f-b7b5-14ff3d3990f3.jpeg" style="margin-right: 1rem;">
   <img src="https://user-images.githubusercontent.com/34796503/232227859-2422031a-33c7-43fc-a4a8-c70018153d33.jpeg">
+  <img src="https://user-images.githubusercontent.com/34796503/232227835-2e885f4e-a7bb-47fb-b55d-187e591f56bf.jpeg" style="margin-right: 1rem;">
+  <img src="https://user-images.githubusercontent.com/34796503/232227838-110bdd3e-b624-4ff2-97c1-853ae6d707ce.jpeg" style="margin-right: 1rem;">
+  <img src="https://user-images.githubusercontent.com/34796503/232227839-7dacc35b-3f64-4dcd-9e57-0a79856c92cd.jpeg" style="margin-right: 1rem;">
+ 
 </div>
 
 
