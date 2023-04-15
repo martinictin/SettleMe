@@ -17,7 +17,7 @@ Once you have Node.js, Yarn, and Expo CLI installed, follow these steps:
 
 Once the development server is running, you can use the Expo client app on your mobile device to view the app. Alternatively, you can use an emulator or simulator to run the app on your computer.
 
-SettleMe is licensed under the MIT License. See LICENSE for more information.!
+
 
 ![Welcome](https://user-images.githubusercontent.com/34796503/232209645-79d88d2b-17f5-47ce-979a-6f1ca741b6a2.jpeg)
 ![Home](https://user-images.githubusercontent.com/34796503/232209628-f961c5f7-0ca6-4c82-8eb0-a0827cc28729.jpeg)
@@ -25,6 +25,9 @@ SettleMe is licensed under the MIT License. See LICENSE for more information.!
 ![DetailThanks](https://user-images.githubusercontent.com/34796503/232209681-9b6d0441-b56e-44f0-b35a-059dfd49ed93.jpeg)
 ![Map](https://user-images.githubusercontent.com/34796503/232209686-b269c791-6072-49c8-a7a0-1f89f09e3075.jpeg)
 ![AccountInfo](https://user-images.githubusercontent.com/34796503/232209699-fc88542a-4cfc-40e6-adf1-9606a2d2e747.jpeg)
+
+
+SettleMe is licensed under the MIT License. See LICENSE for more information.!
 
 
 
