@@ -31,7 +31,7 @@ Once the development server is running, you can use the Expo client app on your 
 
 
 
-SettleMe is licensed under the MIT License. See LICENSE for more information.!
+SettleMe is licensed under the MIT License. See LICENSE for more information!
 
 
 
