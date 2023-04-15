@@ -18,7 +18,7 @@ Once you have Node.js, Yarn, and Expo CLI installed, follow these steps:
 
 Once the development server is running, you can use the Expo client app on your mobile device to view the app. Alternatively, you can use an emulator or simulator to run the app on your computer.
 
-<div style="display: flex; flex-direction: row; justify-content: space-between;">
+<div style="display: flex; flex-direction: row; justify-content: space-between; margin:10%">
 <img src="https://user-images.githubusercontent.com/34796503/232227851-93663197-3e3b-414a-8436-7f2ead48b64e.jpeg" style="margin-right: 10%;">
 <img src="https://user-images.githubusercontent.com/34796503/232227854-a1efea69-7ba6-45c3-b3cb-f2e6105b51ed.jpeg" style="margin: auto;">
 <img src="https://user-images.githubusercontent.com/34796503/232227849-2ea10636-76f2-4288-b976-d999a15a80e2.jpeg" style="margin-left: 10%;">
